@@ -6,7 +6,7 @@ function UserList() {
   const { data: users, error, isLoading } = useQuery("usersData", getUsers);
 
   if (error) {
-    return <p> Error message: {error.message} </p>;
+    return <p> Error message: {(error as Error).message} </p>;
   }
 
   if (isLoading) {
