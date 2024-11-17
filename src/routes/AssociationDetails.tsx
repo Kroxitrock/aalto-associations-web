@@ -1,3 +1,4 @@
+import AssociationAbout from "@/components/AssociationAbout";
 import AssociationHeader from "@/components/AssociationHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -10,7 +11,9 @@ function AssociationDetails() {
           <TabsTrigger value="events">Events</TabsTrigger>
           <TabsTrigger value="about">About</TabsTrigger>
         </TabsList>
-        <TabsContent value="events">TODO</TabsContent>
+        <TabsContent value="events">
+          <AssociationAbout />
+        </TabsContent>
         <TabsContent value="about">About page</TabsContent>
       </Tabs>
     </div>
