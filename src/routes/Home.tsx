@@ -1,4 +1,3 @@
-import "./Home.css";
 import ComponentsExample from "@/components/ComponentsExample";
 
 function Home() {
