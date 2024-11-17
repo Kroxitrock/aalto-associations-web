@@ -1,3 +1,4 @@
+import { Check, MapPin, Pencil, User } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -8,10 +9,10 @@ import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
+  CardTitle,
+  CardImage,
   CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "./ui/card";
 import {
   Carousel,
@@ -56,32 +57,88 @@ export default function ComponentsExample() {
         </AccordionItem>
       </Accordion>
 
-      <Button> Button </Button>
+      {/* DIFFERENT CARD */}
+      <Button variant="action"> Join </Button>
+      <Button> Learn more </Button>
+      <Button variant="icon">
+        <Pencil className="h-4 w-4" /> Edit
+      </Button>
+      <Button variant="icon">
+        <Check className="h-4 w-4" /> Joined
+      </Button>
 
+      {/* ASSOCIATION CARD */}
       <Card>
-        <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
+        <CardImage
+          src="https://www.ayy.fi/sites/g/files/flghsv231/files/styles/o_567w_ah_n/public/2024-09/Aalto_Salsa_Society.png?itok=moApesrS"
+          alt="Noteworthy technology acquisitions 2021"
+        />
+        <div className="flex flex-col p-4 leading-normal">
+          <div className="flex flex-row justify-between leading-normal">
+            <CardTitle>Noteworthy technology acquisitions 2021</CardTitle>
+            <Button className="bg-shadowDark">View</Button>
+          </div>
+          <CardDescription className="mt-4">
+            Here are the biggest enterprise technology acquisitions of 2021 so
+            far, in reverse chronological order.
+          </CardDescription>
+        </div>
       </Card>
 
-      <Carousel>
+      {/* EVENT CARD */}
+      <Card>
+        <CardImage
+          src="https://waterfrontparkseattle.org/wp-content/uploads/2022/07/2021-08-31_HL_DancingtilDusk_WebRes_AdamLu_HO3C1249-1440x960.jpg"
+          alt="Noteworthy technology acquisitions 2021"
+        />
+        <div className="flex flex-col p-4 leading-normal">
+          <div className="flex flex-row gap-2 justify-between leading-normal">
+            <CardTitle>Noteworthy technology acquisitions 2021</CardTitle>
+            <Button variant="icon">
+              <Check className="h-4 w-4" /> Joined
+            </Button>
+          </div>
+          <CardDescription className="mt-4">
+            Here are the biggest enterprise technology acquisitions of 2021 so
+            far, in reverse chronological order.
+          </CardDescription>
+          <CardFooter>
+            <MapPin className="h-4 w-4 mr-2" />
+            Vare, 102
+          </CardFooter>
+        </div>
+        <CardDescription className="p-4 flex items-center justify-center border-l border-white">
+          <User className="h-4 w-4" />
+          30/30
+        </CardDescription>
+      </Card>
+
+      <Input />
+
+      {/* ASSOCIATION CAROUSEL */}
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className="max-w-[200px] md:max-w-xl lg:max-w-5xl bg-shadowDark"
+      >
         <CarouselContent>
-          <CarouselItem>...</CarouselItem>
-          <CarouselItem>...</CarouselItem>
-          <CarouselItem>...</CarouselItem>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/5">
+              <div className="p-3">
+                <Card>
+                  <CardContent className="flex aspect-square items-center justify-center p-1 flex-col">
+                    <span className="text-3xl font-semibold">{index + 1}</span>
+                    <Button className="mt-4">View Details</Button>{" "}
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-
-      <Input />
 
       <Tabs defaultValue="account" className="w-[400px]">
         <TabsList>
