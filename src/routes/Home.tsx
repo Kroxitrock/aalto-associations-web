@@ -1,5 +1,5 @@
 import "./Home.css";
-import UserList from "../components/user-list";
+import UserList from "../components/UserList";
 
 function Home() {
   return <UserList />;

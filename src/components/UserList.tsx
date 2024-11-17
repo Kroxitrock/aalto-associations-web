@@ -1,9 +1,13 @@
 import User from "../model/user";
 import { getUsers } from "../api/user";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 function UserList() {
-  const { data: users, error, isLoading } = useQuery("usersData", getUsers);
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery({ queryKey: ["usersData"], queryFn: getUsers });
 
   if (error) {
     return <p> Error message: {(error as Error).message} </p>;
