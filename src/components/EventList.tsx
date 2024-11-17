@@ -1,9 +1,13 @@
 import Event from "../model/event";
 import { getEvents } from "../api/event";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 function EventList() {
-  const { data: events, error, isLoading } = useQuery("eventsData", getEvents);
+  const {
+    data: events,
+    error,
+    isLoading,
+  } = useQuery({ queryKey: ["eventsData"], queryFn: getEvents });
 
   if (error) {
     return <p> Error message: {(error as Error).message} </p>;

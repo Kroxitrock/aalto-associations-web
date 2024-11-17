@@ -4,6 +4,7 @@ import User from "../model/user";
 const path = "/users";
 
 export async function getUsers(): Promise<User[]> {
-  const response = await axios.get(process.env.API_URL + path);
-  return response.data;
+  return axios
+    .get(import.meta.env.VITE_API_URL + path)
+    .then((response) => response.data as User[]);
 }

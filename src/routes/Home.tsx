@@ -1,8 +1,8 @@
 import "./Home.css";
-import UserList from "../components/user-list";
+import ComponentsExample from "@/components/ComponentsExample";
 
 function Home() {
-  return <UserList />;
+  return <ComponentsExample></ComponentsExample>;
 }
 
 export default Home;
