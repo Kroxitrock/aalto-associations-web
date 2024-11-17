@@ -9,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "flex flex-col bg-shadowDark shadow md:flex-row md:max-w-4xl text-white",
+      "flex flex-col bg-shadowDark shadow md:flex-row md:max-w-4xl text-white m-2",
       className
     )}
     {...props}
@@ -51,7 +51,7 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
+    className={cn("flex items-center justify-end mt-auto", className)}
     {...props}
   />
 ));
@@ -63,7 +63,7 @@ const CardImage: React.FC<{ src: string; alt?: string }> = ({
 }) => {
   return (
     <img
-      className="p-4 object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+      className="object-cover w-full aspect-square  md:aspect-square md:w-48"
       src={src}
       alt={alt}
     />

@@ -1,4 +1,4 @@
-import { Check, Pencil } from "lucide-react";
+import { Check, MapPin, Pencil, User } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +12,7 @@ import {
   CardTitle,
   CardImage,
   CardDescription,
+  CardFooter,
 } from "./ui/card";
 import {
   Carousel,
@@ -82,6 +83,34 @@ export default function ComponentsExample() {
             far, in reverse chronological order.
           </CardDescription>
         </div>
+      </Card>
+
+      {/* EVENT CARD */}
+      <Card>
+        <CardImage
+          src="https://waterfrontparkseattle.org/wp-content/uploads/2022/07/2021-08-31_HL_DancingtilDusk_WebRes_AdamLu_HO3C1249-1440x960.jpg"
+          alt="Noteworthy technology acquisitions 2021"
+        />
+        <div className="flex flex-col p-4 leading-normal">
+          <div className="flex flex-row gap-2 justify-between leading-normal">
+            <CardTitle>Noteworthy technology acquisitions 2021</CardTitle>
+            <Button variant="icon">
+              <Check className="h-4 w-4" /> Joined
+            </Button>
+          </div>
+          <CardDescription className="mt-4">
+            Here are the biggest enterprise technology acquisitions of 2021 so
+            far, in reverse chronological order.
+          </CardDescription>
+          <CardFooter>
+            <MapPin className="h-4 w-4 mr-2" />
+            Vare, 102
+          </CardFooter>
+        </div>
+        <CardDescription className="p-4 flex items-center justify-center border-l border-white">
+          <User className="h-4 w-4" />
+          30/30
+        </CardDescription>
       </Card>
 
       <Input />
