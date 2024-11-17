@@ -1,5 +1,21 @@
+import { Category, CategoryItem, CategoryTitle } from "./ui/categoty";
+
 function ContactInfo() {
-  return <p className="text-2xl mb-4">Contacts</p>;
+  return (
+    <div>
+      <p className="text-2xl">Contacts</p>
+      <Category>
+        <CategoryTitle>Channels</CategoryTitle>
+        <CategoryItem>@aaltosalsaintelegram</CategoryItem>
+        <CategoryItem>+358 1283 619 27</CategoryItem>
+        <CategoryItem>salsa@aalto.fi</CategoryItem>
+      </Category>
+      <Category>
+        <CategoryTitle>Address</CategoryTitle>
+        <CategoryItem>Aalto JMT 1</CategoryItem>
+      </Category>
+    </div>
+  );
 }
 
 export default ContactInfo;
