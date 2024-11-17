@@ -46,7 +46,6 @@ export default function ComponentsExample() {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -55,9 +54,7 @@ export default function ComponentsExample() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-
       <Button> Button </Button>
-
       <Card>
         <CardHeader>
           <CardTitle>Card Title</CardTitle>
@@ -71,18 +68,31 @@ export default function ComponentsExample() {
         </CardFooter>
       </Card>
 
-      <Carousel>
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className="max-w-[200px] md:max-w-xl lg:max-w-5xl"
+      >
         <CarouselContent>
-          <CarouselItem>...</CarouselItem>
-          <CarouselItem>...</CarouselItem>
-          <CarouselItem>...</CarouselItem>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/5">
+              <div className="p-3">
+                <Card>
+                  <CardContent className="flex aspect-square items-center justify-center p-1 flex-col">
+                    <span className="text-3xl font-semibold">{index + 1}</span>
+                    <Button className="mt-4">View Details</Button>{" "}
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
 
       <Input />
-
       <Tabs defaultValue="account" className="w-[400px]">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
