@@ -7,15 +7,15 @@ import { cn } from "@/lib/utils";
 const buttonVariants = cva(" font-medium", {
   variants: {
     variant: {
-      default:
-        "bg-customYellow text-black hover:bg-customYellow-dark font-sans",
+      default: "bg-customYellow text-black hover:bg-customYellow-dark",
+      info: "bg-black  text-white hover:bg-shadowDark border border-white",
     },
     size: {
       default: "h-10 px-4 py-2",
     },
   },
   defaultVariants: {
-    variant: "default",
+    variant: "info",
     size: "default",
   },
 });

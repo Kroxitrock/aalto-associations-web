@@ -75,7 +75,7 @@ export default function ComponentsExample() {
         opts={{
           align: "start",
         }}
-        className="max-w-[200px] md:max-w-xl lg:max-w-5xl"
+        className="max-w-[200px] md:max-w-xl lg:max-w-5xl bg-shadowDark"
       >
         <CarouselContent>
           {Array.from({ length: 10 }).map((_, index) => (
