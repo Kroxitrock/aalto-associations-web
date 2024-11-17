@@ -8,7 +8,8 @@ const buttonVariants = cva(" font-medium", {
   variants: {
     variant: {
       action: "bg-customYellow text-black hover:bg-customYellow-dark",
-      info: "bg-black  text-white hover:bg-shadowDark border border-white",
+      info: "bg-black text-white hover:bg-shadowDark border border-white",
+      icon: "flex gap-2 items-center bg-shadowDark text-white hover:bg-black border border-white ",
     },
     size: {
       default: "h-10 px-4 py-2",

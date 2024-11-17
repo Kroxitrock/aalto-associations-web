@@ -1,3 +1,4 @@
+import { Check, Pencil } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -55,8 +56,17 @@ export default function ComponentsExample() {
         </AccordionItem>
       </Accordion>
 
-      <Button> Button </Button>
+      {/* DIFFERENT CARD */}
+      <Button variant="action"> Join </Button>
+      <Button> Learn more </Button>
+      <Button variant="icon">
+        <Pencil className="h-4 w-4" /> Edit
+      </Button>
+      <Button variant="icon">
+        <Check className="h-4 w-4" /> Joined
+      </Button>
 
+      {/* ASSOCIATION CARD */}
       <Card>
         <CardImage
           src="https://www.ayy.fi/sites/g/files/flghsv231/files/styles/o_567w_ah_n/public/2024-09/Aalto_Salsa_Society.png?itok=moApesrS"
@@ -76,6 +86,7 @@ export default function ComponentsExample() {
 
       <Input />
 
+      {/* ASSOCIATION CAROUSEL */}
       <Carousel
         opts={{
           align: "start",
