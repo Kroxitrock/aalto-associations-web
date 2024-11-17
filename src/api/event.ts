@@ -3,7 +3,8 @@ import Event from "../model/event";
 
 const path = "/event";
 
-export async function getEvents(): Promise<Event[]> {
-  const response = await axios.get(process.env.API_URL + path);
-  return response.data;
+export function getEvents(): Promise<Event[]> {
+  return axios
+    .get(import.meta.env.VITE_API_URL + path)
+    .then((response) => response.data as Event[]);
 }
