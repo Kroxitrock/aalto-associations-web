@@ -46,6 +46,7 @@ export default function ComponentsExample() {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -54,7 +55,9 @@ export default function ComponentsExample() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
       <Button> Button </Button>
+
       <Card>
         <CardHeader>
           <CardTitle>Card Title</CardTitle>
@@ -93,6 +96,7 @@ export default function ComponentsExample() {
       </Carousel>
 
       <Input />
+
       <Tabs defaultValue="account" className="w-[400px]">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
