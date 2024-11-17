@@ -8,10 +8,9 @@ import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
   CardTitle,
+  CardImage,
+  CardDescription,
 } from "./ui/card";
 import {
   Carousel,
@@ -59,17 +58,23 @@ export default function ComponentsExample() {
       <Button> Button </Button>
 
       <Card>
-        <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
+        <CardImage
+          src="https://www.ayy.fi/sites/g/files/flghsv231/files/styles/o_567w_ah_n/public/2024-09/Aalto_Salsa_Society.png?itok=moApesrS"
+          alt="Noteworthy technology acquisitions 2021"
+        />
+        <div className="flex flex-col p-4 leading-normal">
+          <div className="flex flex-row justify-between leading-normal">
+            <CardTitle>Noteworthy technology acquisitions 2021</CardTitle>
+            <Button className="bg-shadowDark">View</Button>
+          </div>
+          <CardDescription className="mt-4">
+            Here are the biggest enterprise technology acquisitions of 2021 so
+            far, in reverse chronological order.
+          </CardDescription>
+        </div>
       </Card>
+
+      <Input />
 
       <Carousel
         opts={{
@@ -94,8 +99,6 @@ export default function ComponentsExample() {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-
-      <Input />
 
       <Tabs defaultValue="account" className="w-[400px]">
         <TabsList>

@@ -6,21 +6,16 @@ const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("text-white", className)} {...props} />
-));
-Card.displayName = "Card";
-
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    className={cn(
+      "flex flex-col bg-shadowDark shadow md:flex-row md:max-w-4xl text-white",
+      className
+    )}
     {...props}
   />
 ));
-CardHeader.displayName = "CardHeader";
+Card.displayName = "Card";
 
 const CardTitle = React.forwardRef<
   HTMLDivElement,
@@ -28,10 +23,7 @@ const CardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    )}
+    className={cn("flex flex-col text-2xl", className)}
     {...props}
   />
 ));
@@ -41,11 +33,7 @@ const CardDescription = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("text-sm", className)} {...props} />
 ));
 CardDescription.displayName = "CardDescription";
 
@@ -69,11 +57,18 @@ const CardFooter = React.forwardRef<
 ));
 CardFooter.displayName = "CardFooter";
 
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
+const CardImage: React.FC<{ src: string; alt?: string }> = ({
+  src,
+  alt = "",
+}) => {
+  return (
+    <img
+      className="p-4 object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+      src={src}
+      alt={alt}
+    />
+  );
 };
+CardImage.displayName = "CardImage";
+
+export { Card, CardTitle, CardFooter, CardDescription, CardContent, CardImage };
