@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const buttonVariants = cva(" font-medium", {
   variants: {
     variant: {
-      default: "bg-customYellow text-black hover:bg-customYellow-dark",
+      action: "bg-customYellow text-black hover:bg-customYellow-dark",
       info: "bg-black  text-white hover:bg-shadowDark border border-white",
     },
     size: {
