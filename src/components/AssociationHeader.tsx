@@ -5,7 +5,7 @@ function AssociationHeader() {
     <Card className="flex items-center justify-center p-4 w-full">
       <div className="flex flex-col items-center justify-center">
         <CardImage
-          className="md:w-40"
+          className="md:w-20"
           src="https://www.ayy.fi/sites/g/files/flghsv231/files/styles/o_567w_ah_n/public/2024-09/Aalto_Salsa_Society.png?itok=moApesrS"
           alt="Aalto Salsa logo"
         />

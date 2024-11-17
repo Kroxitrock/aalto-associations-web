@@ -2,6 +2,7 @@ import Event from "../model/event";
 import { getEvents } from "../api/event";
 import { useQuery } from "@tanstack/react-query";
 
+//TODO: Use the Event card form the ComponentExample
 function EventList() {
   const {
     data: events,

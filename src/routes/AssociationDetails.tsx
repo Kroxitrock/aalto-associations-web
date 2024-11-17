@@ -4,6 +4,8 @@ import EventList from "@/components/EventList";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// TODO: Make the components wider for large screens
+// TODO: Load real data from the backend
 function AssociationDetails() {
   return (
     <div className="flex flex-col items-center justify-between">
@@ -20,6 +22,8 @@ function AssociationDetails() {
           <AssociationAbout />
         </TabsContent>
       </Tabs>
+
+      {/* TODO: Fix the place of the button to be on the bottom  */}
       <Button variant="action" className="mb-4">
         Join association
       </Button>
