@@ -59,6 +59,9 @@ module.exports = {
           DEFAULT: "#F7E159",
           dark: "#cbbb4c",
         },
+        shadowDark: {
+          DEFAULT: "#282424",
+        },
       },
       keyframes: {
         "accordion-down": {
