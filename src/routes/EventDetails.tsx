@@ -1,5 +1,6 @@
 import EventHeader from "@/components/EventHeader";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import {
   LeftView,
   RightView,
@@ -7,11 +8,40 @@ import {
   ViewContent,
   ViewTitle,
 } from "@/components/ui/split_view";
+import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
 
 function EventDetails() {
   return (
     <div className="flex flex-col items-center justify-between">
       <EventHeader />
+
+      <Card className="bg-black">
+        <CardContent className="flex flex-col items-center">
+          <div className="h-20 w-20 bg-customYellow rounded-full text-black p-3">
+            <CalendarIcon className="h-14 w-14" />
+          </div>
+
+          <CardTitle className="text-center mt-4">
+            27/10/2024 <br /> 19:30
+          </CardTitle>
+        </CardContent>
+
+        <CardContent className="flex flex-col items-center">
+          <div className="h-20 w-20 bg-customYellow rounded-full text-black p-3">
+            <MapPin className="h-14 w-14" />
+          </div>
+
+          <CardTitle className="text-center mt-4">JMT1</CardTitle>
+        </CardContent>
+
+        <CardContent className="flex flex-col items-center">
+          <div className="h-20 w-20 bg-customYellow rounded-full text-black p-3">
+            <EuroIcon className="h-14 w-14" />
+          </div>
+          <CardTitle className="text-center mt-4">Free</CardTitle>
+        </CardContent>
+      </Card>
+
       <SplitView>
         <LeftView>
           <ViewTitle>Desciption</ViewTitle>
