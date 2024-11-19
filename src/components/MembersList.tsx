@@ -3,6 +3,7 @@ import { Category, CategoryItem, CategoryTitle } from "./ui/categoty";
 
 function MemberList() {
   return (
+    // TODO: Add better scroll bar. Maybe use shadcn component
     <div className="overflow-y-auto max-h-96">
       <Category>
         <CategoryTitle>Accepted</CategoryTitle>

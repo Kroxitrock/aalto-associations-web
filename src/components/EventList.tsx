@@ -24,6 +24,7 @@ function EventList() {
               <CardTitle>{event.title}</CardTitle>
               <Button variant="action">Join</Button>
             </div>
+            {/* TODO: Shorter too long description */}
             <CardDescription className="mt-4">
               {event.description}
             </CardDescription>

@@ -9,67 +9,71 @@ import {
   ViewContent,
   ViewTitle,
 } from "@/components/ui/split_view";
+import { useEvent } from "@/context/EventContext";
+import { EventProvider } from "@/provider/EventProvider";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 function EventDetails() {
-  const { id } = useParams<{ id: string }>(); //TODO: create an interface Param here
+  const { id } = useParams();
   if (!id) {
     throw new Error("No association ID provided in the URL");
   }
   const eventId = parseInt(id, 10);
+  return (
+    <EventProvider eventId={eventId}>
+      <EventDetailsContent />
+    </EventProvider>
+  );
+}
+
+function EventDetailsContent() {
+  const { data } = useEvent();
 
   return (
     <div className="flex flex-col items-center justify-between">
       <EventHeader />
-
       <Card className="bg-black">
-        <CardContent className="flex flex-col items-center">
-          <div className="h-20 w-20 bg-customYellow rounded-full text-black p-3">
-            <CalendarIcon className="h-14 w-14" />
-          </div>
+        {data?.date && (
+          <CardContent className="flex flex-col items-center w-52">
+            <div className="h-16 w-16 bg-customYellow rounded-full text-black p-2">
+              <CalendarIcon className="h-12 w-12" />
+            </div>
 
-          <CardTitle className="text-center mt-4">
-            27/10/2024 <br /> 19:30
-          </CardTitle>
-        </CardContent>
+            <CardTitle className="text-center mt-4">
+              {formatDateTime(data.date)}
+            </CardTitle>
+          </CardContent>
+        )}
 
-        <CardContent className="flex flex-col items-center">
-          <div className="h-20 w-20 bg-customYellow rounded-full text-black p-3">
-            <MapPin className="h-14 w-14" />
-          </div>
+        {data?.location !== null && (
+          <CardContent className="flex flex-col items-center w-52">
+            <div className="h-16 w-16 bg-customYellow rounded-full text-black p-2">
+              <MapPin className="h-12 w-12" />
+            </div>
 
-          <CardTitle className="text-center mt-4">JMT1</CardTitle>
-        </CardContent>
+            <CardTitle className="text-center mt-4">{data?.location}</CardTitle>
+          </CardContent>
+        )}
 
-        <CardContent className="flex flex-col items-center">
-          <div className="h-20 w-20 bg-customYellow rounded-full text-black p-3">
-            <EuroIcon className="h-14 w-14" />
-          </div>
-          <CardTitle className="text-center mt-4">Free</CardTitle>
-        </CardContent>
+        {data?.price !== null && (
+          <CardContent className="flex flex-col items-center w-52">
+            <div className="h-16 w-16 bg-customYellow rounded-full text-black p-2">
+              <EuroIcon className="h-12 w-12" />
+            </div>
+            <CardTitle className="text-center mt-4">{data?.price}</CardTitle>
+          </CardContent>
+        )}
       </Card>
 
       <SplitView>
         <LeftView>
           <ViewTitle>Desciption</ViewTitle>
-          <ViewContent>
-            {`Aalto Salsa Society ry is a vibrant and dynamic student association dedicated to the passion of salsa dancing.
-                Founded at Aalto University, this society has become a thriving community for individuals who love the energy and rhythm of Latin music.
-
-                Our Mission:
-                - To create a welcoming and inclusive environment for salsa enthusiasts of all levels.
-                - To promote the cultural richness and beauty of salsa dancing.
-                - To provide opportunities for members to learn, practice, and perform salsa.
-
-                What We Offer:
-                - Regular Salsa Classes: Learn from experienced instructors and master the fundamentals of salsa dancing.
-                - Practice Sessions: Refine your skills and connect with fellow dancers in a fun and supportive atmosphere.
-                - Social Events: Enjoy salsa parties, socials, and other events to meet new people and celebrate the joy of dancing.`}
-          </ViewContent>
+          <ViewContent> {data?.description}</ViewContent>
         </LeftView>
         <RightView>
           <ViewTitle>Participants</ViewTitle>
+          {/* TODO: Load from db */}
           <MemberList />
         </RightView>
       </SplitView>
@@ -79,6 +83,30 @@ function EventDetails() {
         Join
       </Button>
     </div>
+  );
+}
+
+function formatDateTime(dateString: Date) {
+  const date = new Date(dateString);
+
+  const formattedDate = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+
+  const formattedTime = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  }).format(date);
+
+  return (
+    <>
+      {formattedDate}
+      <br />
+      {formattedTime}
+    </>
   );
 }
 

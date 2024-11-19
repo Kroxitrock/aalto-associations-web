@@ -12,6 +12,19 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />,
   },
+  {
+    path: "/associations/:id/events",
+    element: <AssociationDetails />,
+  },
+  {
+    path: "/associations/:id/about",
+    element: <AssociationDetails />,
+  },
+
+  {
+    path: "/event/:id",
+    element: <EventDetails />,
+  },
 ]);
 const queryClient = new QueryClient();
 
