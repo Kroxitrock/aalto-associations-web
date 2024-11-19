@@ -72,7 +72,6 @@ const CardImage = React.forwardRef<
     {...props}
   />
 ));
-
 CardImage.displayName = "CardImage";
 
 export { Card, CardTitle, CardFooter, CardDescription, CardContent, CardImage };
