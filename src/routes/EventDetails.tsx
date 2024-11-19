@@ -1,4 +1,5 @@
 import EventHeader from "@/components/EventHeader";
+import MemberList from "@/components/MembersList";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import {
@@ -61,7 +62,8 @@ function EventDetails() {
           </ViewContent>
         </LeftView>
         <RightView>
-          <ViewTitle>Contacts</ViewTitle>
+          <ViewTitle>Participants</ViewTitle>
+          <MemberList />
         </RightView>
       </SplitView>
 
