@@ -6,7 +6,6 @@ import Home from "./routes/Home.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import EventDetails from "./routes/EventDetails.tsx";
 import AssociationDetails from "./routes/AssociationDetails.tsx";
-import EventDetails from "./routes/EventDetails.tsx";
 
 const router = createBrowserRouter([
   {
