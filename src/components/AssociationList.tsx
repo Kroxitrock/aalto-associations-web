@@ -10,6 +10,8 @@ export default function AssociationList() {
       {isPending && <p>Loading associations...</p>}
       {error && <p>Error fetching associations!</p>}
 
+      {data?.length === 0 && <p>No associations found.</p>}
+
       {data?.map((association) => (
         <Card key={association.id}>
           <CardImage src={association.logo} alt={`${association.name} logo`} />{" "}
