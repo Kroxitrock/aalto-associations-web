@@ -3,7 +3,6 @@ import { Category, CategoryItem, CategoryTitle } from "./ui/categoty";
 function ContactInfo() {
   return (
     <div>
-      <p className="text-2xl">Contacts</p>
       <Category>
         <CategoryTitle>Channels</CategoryTitle>
         <CategoryItem>@aaltosalsaintelegram</CategoryItem>

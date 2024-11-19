@@ -61,6 +61,7 @@ module.exports = {
         },
         shadowDark: {
           DEFAULT: "#282424",
+          light: "#353030",
         },
       },
       keyframes: {
