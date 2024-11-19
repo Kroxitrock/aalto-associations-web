@@ -11,6 +11,6 @@ export function getEvents(): Promise<Event[]> {
 
 export function getEventById(id: number): Promise<Event> {
   return axios
-    .get(import.meta.env.VITE_API_URL + path + `/${id}`)
+    .get(`${import.meta.env.VITE_API_URL}${path}/${id}`)
     .then((response) => response.data as Event);
 }
