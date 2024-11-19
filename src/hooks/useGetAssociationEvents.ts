@@ -4,9 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 export function useGetAssociationEvents(associationId: number) {
   return useQuery({
     queryKey: ["association-events", associationId],
-    queryFn: ({ queryKey }) => {
-      const [, id] = queryKey;
-      return getAssociationEvents(id as number);
-    },
+    queryFn: () => getAssociationEvents(associationId),
   }); //TODO: Andrey doesn't like it... but for now it works <3
 }
