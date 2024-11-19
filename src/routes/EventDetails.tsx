@@ -10,8 +10,15 @@ import {
   ViewTitle,
 } from "@/components/ui/split_view";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 function EventDetails() {
+  const { id } = useParams<{ id: string }>(); //TODO: create an interface Param here
+  if (!id) {
+    throw new Error("No association ID provided in the URL");
+  }
+  const eventId = parseInt(id, 10);
+
   return (
     <div className="flex flex-col items-center justify-between">
       <EventHeader />
