@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/split_view";
 
 function AssociationAbout() {
+  //{data} = useAssociationDetails()
   return (
     <SplitView>
       <LeftView>
