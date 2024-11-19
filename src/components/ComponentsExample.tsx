@@ -69,6 +69,7 @@ export default function ComponentsExample() {
 
       {/* ASSOCIATION CARD */}
       <Card>
+        {/* TODO: Padding to the image */}
         <CardImage
           src="https://www.ayy.fi/sites/g/files/flghsv231/files/styles/o_567w_ah_n/public/2024-09/Aalto_Salsa_Society.png?itok=moApesrS"
           alt="Noteworthy technology acquisitions 2021"

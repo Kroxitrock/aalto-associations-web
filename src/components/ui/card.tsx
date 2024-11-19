@@ -57,18 +57,22 @@ const CardFooter = React.forwardRef<
 ));
 CardFooter.displayName = "CardFooter";
 
-const CardImage: React.FC<{ src: string; alt?: string }> = ({
-  src,
-  alt = "",
-}) => {
-  return (
-    <img
-      className="object-cover w-full aspect-square  md:aspect-square md:w-48"
-      src={src}
-      alt={alt}
-    />
-  );
-};
+const CardImage = React.forwardRef<
+  HTMLImageElement,
+  React.ImgHTMLAttributes<HTMLImageElement>
+>(({ className, src, alt = "", ...props }, ref) => (
+  <img
+    ref={ref}
+    className={cn(
+      "object-cover w-full aspect-square md:aspect-square md:w-48",
+      className
+    )}
+    src={src}
+    alt={alt}
+    {...props}
+  />
+));
+
 CardImage.displayName = "CardImage";
 
 export { Card, CardTitle, CardFooter, CardDescription, CardContent, CardImage };
