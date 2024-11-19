@@ -1,8 +1,16 @@
 import Event from "../model/event";
 import { getEvents } from "../api/event";
 import { useQuery } from "@tanstack/react-query";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardImage,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import { MapPin, User } from "lucide-react";
 
-//TODO: Use the Event card form the ComponentExample
 function EventList() {
   const {
     data: events,
@@ -21,56 +29,35 @@ function EventList() {
   if (events)
     return (
       <>
+        {/* TODO: Event should be order by date... maybe in backeng */}
         {events.map((event: Event) => (
-          <div
-            key={event.id}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              gap: "24px",
-              backgroundColor: "#AEAEAE",
-              padding: "12px",
-              marginTop: "12px",
-            }}
-          >
-            <div
-              style={{
-                aspectRatio: "4 / 3", // Enforce a 4:3 ratio
-                width: "30%", // Set the width
-                overflow: "hidden",
-                position: "relative",
-              }}
-            >
-              <img
-                src={event.picture}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <p>{event.title}</p>
-              <p>{event.description}</p>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p>{new Date(event.date).toLocaleDateString()}</p>
-                <p>{event.location}</p>
+          <Card key={event.id}>
+            <CardImage src={event.picture} alt={event.title} />
+            <div className="flex flex-col p-4 leading-normal w-full">
+              <div className="flex flex-row gap-2 justify-between leading-normal">
+                <CardTitle>{event.title}</CardTitle>
+                <Button variant="action">Join</Button>
+              </div>
+              <CardDescription className="mt-4">
+                {event.description}
+              </CardDescription>
+              <div className="flex justify-between items-center mt-auto">
+                <CardFooter className="flex items-center justify-start mt-auto">
+                  {new Date(event.date).toLocaleString()}
+                </CardFooter>
+                <CardFooter>
+                  <MapPin className="h-4 w-4 mr-2" />
+                  {event.location}
+                </CardFooter>
               </div>
             </div>
-            <div>
-              <p>Capacity:</p>
-              <p>{event.capacity}</p>
-            </div>
-          </div>
+            {/* TODO: Looking bad on small screens */}
+            <CardDescription className="flex items-center justify-center border-l border-white w-40">
+              <User className="h-4 w-4" />
+              {/* TODO: Load signed participants */}
+              0/{event.capacity}
+            </CardDescription>
+          </Card>
         ))}
       </>
     );

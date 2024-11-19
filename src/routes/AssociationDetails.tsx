@@ -4,9 +4,13 @@ import EventList from "@/components/EventList";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+interface Props {
+  associationId: number;
+}
 // TODO: Make the components wider for large screens
 // TODO: Load real data from the backend
-function AssociationDetails() {
+function AssociationDetails({ associationId }: Props) {
+  console.log(associationId);
   return (
     <div className="flex flex-col items-center justify-between">
       <AssociationHeader />

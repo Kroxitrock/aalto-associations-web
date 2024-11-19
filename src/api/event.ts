@@ -1,7 +1,7 @@
 import axios from "axios";
 import Event from "../model/event";
 
-const path = "/event";
+const path = "/events";
 
 export function getEvents(): Promise<Event[]> {
   return axios
