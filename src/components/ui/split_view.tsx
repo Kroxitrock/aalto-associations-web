@@ -8,7 +8,7 @@ const SplitView = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col sm:flex-row w-full", className)}
+    className={cn("flex flex-col sm:flex-row w-full md:max-w-4xl ", className)}
     {...props}
   />
 ));

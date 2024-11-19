@@ -1,9 +1,8 @@
 import ComponentsExample from "@/components/ComponentsExample";
 import "./Home.css";
-import EventDetails from "./EventDetails";
 
 function Home() {
-  return <EventDetails />;
+  return <ComponentsExample />;
 }
 
 export default Home;
