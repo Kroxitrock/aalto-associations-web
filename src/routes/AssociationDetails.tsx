@@ -9,14 +9,14 @@ import { useNavigate, useParams } from "react-router-dom";
 // TODO: Make the components wider for large screens
 // TODO: Load real data from the backend
 function AssociationDetails() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>(); //TODO: create an interface Param here
+  const navigate = useNavigate();
   if (!id) {
     throw new Error("No association ID provided in the URL");
   }
   const associationId = parseInt(id, 10);
-  const currentTab = location.pathname.endsWith("about") ? "about" : "events";
+  const currentTab = location.pathname.endsWith("about") ? "about" : "events"; //TODO: put in enum and use it so it can work with many tabs
 
-  const navigate = useNavigate();
   const handleTabChange = (tab: string) => {
     navigate(`/associations/${associationId}/${tab}`);
   };
@@ -26,6 +26,7 @@ function AssociationDetails() {
       <AssociationHeader />
       <Tabs defaultValue={currentTab} className="w-full md:max-w-4xl">
         <TabsList>
+          {/* TODO: Use the enum here as well */}
           <TabsTrigger value="events" onClick={() => handleTabChange("events")}>
             Events
           </TabsTrigger>
@@ -42,7 +43,6 @@ function AssociationDetails() {
           <AssociationAbout />
         </TabsContent>
       </Tabs>
-
       {/* TODO: Fix the place of the button to be on the bottom  */}
       <Button variant="action" className="mb-4">
         Join association

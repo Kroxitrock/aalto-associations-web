@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/associations/:id/about",
-    element: <AssociationDetails />,
+    element: <AssociationDetails /> /* TODO: add provider */,
   },
 ]);
 const queryClient = new QueryClient();

@@ -1,6 +1,4 @@
 import Event from "../model/event";
-import { getEvents } from "../api/event";
-import { useQuery } from "@tanstack/react-query";
 import {
   Card,
   CardDescription,
@@ -13,7 +11,7 @@ import { MapPin, User } from "lucide-react";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
 
 function EventList() {
-  const { data, isPending, error } = useAssociationEvents();
+  const { data } = useAssociationEvents();
 
   return (
     <>

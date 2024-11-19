@@ -8,5 +8,5 @@ export function useGetAssociationEvents(associationId: number) {
       const [, id] = queryKey;
       return getAssociationEvents(id as number);
     },
-  });
+  }); //TODO: Andrey doesn't like it... but for now it works <3
 }

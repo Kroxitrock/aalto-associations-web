@@ -1,6 +1,7 @@
 import ContactInfo from "./ContactInfo";
 
 function AssociationAbout() {
+  //{data} = useAssociationDetails()
   return (
     <div className="flex flex-col sm:flex-row w-full">
       <div className="sm:flex-[3] p-4">
