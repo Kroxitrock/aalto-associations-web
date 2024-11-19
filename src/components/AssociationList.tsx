@@ -1,5 +1,5 @@
 import { useAssociations } from "@/contexts/AssociationsContext";
-import { Card, CardHeader } from "./ui/card";
+import { Card, CardTitle } from "./ui/card";
 
 export default function AssociationList() {
   const { data, isPending, error } = useAssociations();
@@ -11,7 +11,7 @@ export default function AssociationList() {
 
       {data?.map((association) => (
         <Card>
-          <CardHeader>{association.name}</CardHeader>
+          <CardTitle>{association.name}</CardTitle>
         </Card>
       ))}
     </div>
