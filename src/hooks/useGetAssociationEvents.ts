@@ -5,5 +5,5 @@ export function useGetAssociationEvents(associationId: number) {
   return useQuery({
     queryKey: ["association-events", associationId],
     queryFn: () => getAssociationEvents(associationId),
-  }); //TODO: Andrey doesn't like it... but for now it works <3
+  });
 }
