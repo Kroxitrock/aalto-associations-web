@@ -1,4 +1,4 @@
-import { Association } from "@/model/association";
+import { Association, AssociationFilter } from "@/model/association";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 
@@ -7,6 +7,8 @@ interface Props {
   isPending: boolean;
   error: Error | null;
   refetch: (options?: RefetchOptions) => Promise<QueryObserverResult>;
+  filter: AssociationFilter;
+  setFilter: (filter: AssociationFilter) => void;
 }
 
 export const AssociationsContext = createContext<Props | undefined>(undefined);

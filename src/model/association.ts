@@ -8,3 +8,7 @@ export interface Association {
   email: string;
   membership_fee: number;
 }
+
+export interface AssociationFilter {
+  nameSearch?: string;
+}
