@@ -1,8 +1,8 @@
-import "./Home.css";
 import ComponentsExample from "@/components/ComponentsExample";
+import "./Home.css";
 
 function Home() {
-  return <ComponentsExample></ComponentsExample>;
+  return <ComponentsExample />;
 }
 
 export default Home;
