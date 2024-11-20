@@ -56,6 +56,7 @@ function EventDetailsContent() {
           </CardContent>
         )}
 
+        {/* TODO: If price is 0 replace with Free */}
         {data?.price !== null && (
           <CardContent className="flex flex-col items-center w-52">
             <div className="h-16 w-16 bg-customYellow rounded-full text-black p-2">

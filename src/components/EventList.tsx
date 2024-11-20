@@ -39,6 +39,7 @@ function EventList() {
             </div>
           </div>
           {/* TODO: Looking bad on small screens */}
+          {/* TODO: Dont show if there is no capacity  */}
           <CardDescription className="flex items-center justify-center border-l border-white w-40">
             <User className="h-4 w-4" />
             {/* TODO: Load signed participants */}
