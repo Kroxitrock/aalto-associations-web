@@ -8,7 +8,7 @@ import {
   SplitView,
   ViewContent,
   ViewTitle,
-} from "@/components/ui/split_view";
+} from "@/components/ui/splitView";
 import { useEvent } from "@/context/EventContext";
 import { EventProvider } from "@/provider/EventProvider";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";

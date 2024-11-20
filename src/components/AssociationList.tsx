@@ -18,7 +18,7 @@ export default function AssociationList() {
           <div className="flex flex-col p-4 leading-normal">
             <div className="flex flex-row justify-between leading-normal">
               <CardTitle>{association.name}</CardTitle>
-              <Button className="bg-shadowDark">Learn more</Button>
+              <Button className="icon">Learn more</Button>
             </div>
             <CardDescription className="mt-4">
               {association.description}
