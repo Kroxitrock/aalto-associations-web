@@ -14,8 +14,8 @@ import { useNavigate } from "react-router-dom";
 function EventList() {
   const { data } = useAssociationEvents();
   const navigate = useNavigate();
-  const navigateEvent = (eve: number) => {
-    navigate(`/events/${eve}`);
+  const navigateEvent = (eventId: number) => {
+    navigate(`/events/${eventId}`);
   };
 
   return (
