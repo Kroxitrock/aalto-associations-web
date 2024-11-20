@@ -69,7 +69,7 @@ function EventDetailsContent() {
 
       <SplitView>
         <LeftView>
-          <ViewTitle>Desciption</ViewTitle>
+          <ViewTitle>Description</ViewTitle>
           <ViewContent> {data?.description}</ViewContent>
         </LeftView>
         <RightView>

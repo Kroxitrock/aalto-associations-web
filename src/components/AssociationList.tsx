@@ -1,9 +1,14 @@
 import { useAssociations } from "@/contexts/AssociationsContext";
 import { Card, CardDescription, CardImage, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
 
 export default function AssociationList() {
   const { data, isPending, error } = useAssociations();
+  const navigate = useNavigate();
+  const navigateAssociation = (ass: number) => {
+    navigate(`/associations/${ass}/events`);
+  };
 
   return (
     <div>
@@ -18,7 +23,12 @@ export default function AssociationList() {
           <div className="flex flex-col p-4 leading-normal">
             <div className="flex flex-row justify-between leading-normal">
               <CardTitle>{association.name}</CardTitle>
-              <Button className="icon">Learn more</Button>
+              <Button
+                onClick={() => navigateAssociation(association.id)}
+                className="icon"
+              >
+                Learn more
+              </Button>
             </div>
             <CardDescription className="mt-4">
               {association.description}

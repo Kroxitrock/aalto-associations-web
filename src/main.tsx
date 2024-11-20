@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     element: <AssociationDetails /> /* TODO: add provider */,
   },
   {
-    path: "/event/:id",
+    path: "/events/:id",
     element: <EventDetails />,
   },
 ]);
