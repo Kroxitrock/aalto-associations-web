@@ -1,6 +1,6 @@
 import React from "react";
 import { Input } from "./input";
-import { SearchIcon } from "./searchIcon";
+import { Search } from "lucide-react";
 
 interface Props {
   placeholder?: string;
@@ -31,7 +31,7 @@ export default function SearchBar({
         placeholder={placeholder}
         className="flex-1 text-white bg-transparent border-none"
       />
-      <SearchIcon className="text-white cursor-pointer" onClick={onClick} />
+      <Search className="text-white cursor-pointer" onClick={onClick}></Search>
     </div>
   );
 }

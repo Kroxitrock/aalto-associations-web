@@ -6,7 +6,7 @@ export default function AssociationList() {
   const { data, isPending, error } = useAssociations();
 
   return (
-    <div className="flex flex-col">
+    <div>
       {isPending && <p>Loading associations...</p>}
       {error && <p>Error fetching associations!</p>}
 
@@ -14,7 +14,7 @@ export default function AssociationList() {
 
       {data?.map((association) => (
         <Card key={association.id}>
-          <CardImage src={association.logo} alt={`${association.name} logo`} />{" "}
+          <CardImage src={association.logo} alt={`${association.name} logo`} />
           <div className="flex flex-col p-4 leading-normal">
             <div className="flex flex-row justify-between leading-normal">
               <CardTitle>{association.name}</CardTitle>
