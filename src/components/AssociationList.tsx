@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 export default function AssociationList() {
   const { data, isPending, error } = useAssociations();
   const navigate = useNavigate();
-  const navigateAssociation = (ass: number) => {
-    navigate(`/associations/${ass}/events`);
+  const navigateAssociation = (associationId: number) => {
+    navigate(`/associations/${associationId}/events`);
   };
 
   return (
