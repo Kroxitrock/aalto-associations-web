@@ -9,15 +9,24 @@ import {
 import { Button } from "./ui/button";
 import { MapPin, User } from "lucide-react";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
+import { useNavigate } from "react-router-dom";
 
 function EventList() {
   const { data } = useAssociationEvents();
+  const navigate = useNavigate();
+  const navigateEvent = (eventId: number) => {
+    navigate(`/events/${eventId}`);
+  };
 
   return (
     <>
       {/* TODO: Event should be order by date... maybe in backeng */}
       {data?.map((event: Event) => (
-        <Card key={event.id}>
+        <Card
+          onClick={() => navigateEvent(event.id)}
+          key={event.id}
+          className="cursor-pointer"
+        >
           <CardImage src={event.picture} alt={event.title} />
           <div className="flex flex-col p-4 leading-normal w-full">
             <div className="flex flex-row gap-2 justify-between leading-normal">
@@ -38,13 +47,15 @@ function EventList() {
               </CardFooter>
             </div>
           </div>
-          {/* TODO: Looking bad on small screens */}
-          {/* TODO: Dont show if there is no capacity  */}
-          <CardDescription className="flex items-center justify-center border-l border-white w-40">
-            <User className="h-4 w-4" />
-            {/* TODO: Load signed participants */}
-            0/{event.capacity}
-          </CardDescription>
+          {event.capacity !== null && (
+            <CardDescription className="flex items-center md:justify-center md:border-l border-white w-40 ">
+              <div className="flex flex-row pl-4 md:pl-0">
+                <User className="h-4 w-4" />
+                {/* TODO: Load signed participants */}
+                0/{event.capacity}
+              </div>
+            </CardDescription>
+          )}
         </Card>
       ))}
     </>
