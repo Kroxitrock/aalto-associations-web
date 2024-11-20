@@ -17,7 +17,7 @@ import { useParams } from "react-router-dom";
 function EventDetails() {
   const { id } = useParams();
   if (!id) {
-    throw new Error("No association ID provided in the URL");
+    throw new Error("No event ID provided in the URL");
   }
   const eventId = parseInt(id, 10);
   return (
