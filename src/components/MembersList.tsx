@@ -1,5 +1,5 @@
 import { CardImage } from "./ui/card";
-import { Category, CategoryItem, CategoryTitle } from "./ui/categoty";
+import { Category, CategoryItem, CategoryTitle } from "./ui/category";
 
 function MemberList() {
   return (
