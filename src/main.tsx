@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Associations from "./routes/Associations.tsx";
 import EventDetails from "./routes/EventDetails.tsx";
 import AssociationDetails from "./routes/AssociationDetails.tsx";
 
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "/associations",
+    element: <Associations />,
+  },
+  {
     path: "/associations/:id/events",
     element: <AssociationDetails />,
   },
@@ -20,7 +25,6 @@ const router = createBrowserRouter([
     path: "/associations/:id/about",
     element: <AssociationDetails /> /* TODO: add provider */,
   },
-
   {
     path: "/event/:id",
     element: <EventDetails />,

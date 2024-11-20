@@ -5,7 +5,7 @@ import {
   SplitView,
   ViewContent,
   ViewTitle,
-} from "@/components/ui/split_view";
+} from "@/components/ui/splitView";
 
 function AssociationAbout() {
   //{data} = useAssociationDetails()
