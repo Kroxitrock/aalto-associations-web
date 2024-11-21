@@ -1,4 +1,4 @@
-import { EventContext } from "@/context/EventContext";
+import { EventContext } from "@/contexts/EventContext";
 import { useGetEventById } from "@/hooks/useGetEventById";
 
 interface Props {
