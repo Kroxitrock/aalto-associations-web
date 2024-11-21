@@ -6,7 +6,10 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function AssociationEventsProvider({ associationId, children }: Props) {
+export default function AssociationEventsProvider({
+  associationId,
+  children,
+}: Props) {
   const { data, isPending, error, refetch } =
     useGetAssociationEvents(associationId);
 

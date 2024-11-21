@@ -10,10 +10,10 @@ import {
   ViewTitle,
 } from "@/components/ui/splitView";
 import { useEvent } from "@/contexts/EventContext";
-import { EventProvider } from "@/provider/EventProvider";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
 import { useParams } from "react-router-dom";
 import CircleChip from "@/components/ui/eventcirclechip";
+import EventProvider from "@/provider/EventProvider";
 
 function EventDetails() {
   const { id } = useParams();
