@@ -2,8 +2,10 @@ import { CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-
+import { cn } from "@/lib/utils";
+import { toast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -12,7 +14,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -25,6 +34,7 @@ const formSchema = z.object({
     message: "Price is required. 0 means free. ",
   }),
   capacity: z.number().optional(),
+  dob: z.date().optional(),
 });
 type FormData = z.infer<typeof formSchema>;
 
@@ -105,18 +115,47 @@ function Description({ form }: Prop) {
   );
 }
 
-// TODO: Use date picker
+// TODO: font is different
+// TODO: put time
 function Date({ form }: Prop) {
+  console.log(form);
   return (
     <FormField
       control={form.control}
-      name="date"
+      name="dob"
       render={({ field }) => (
-        <FormItem className="w-1/2">
-          <FormLabel>Date</FormLabel>
-          <FormControl>
-            <Input className="" placeholder="DD.MM.YYYY - 00:00" {...field} />
-          </FormControl>
+        <FormItem className="w-1/2 flex flex-col mt-3">
+          <FormLabel>Date of birth</FormLabel>
+          <Popover>
+            <PopoverTrigger asChild>
+              <FormControl>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "text-left font-normal rounded-lg flex justify-between items-center w-full",
+                    !field.value && "text-muted-foreground"
+                  )}
+                >
+                  <span className="flex-1">
+                    {field.value ? (
+                      format(field.value, "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                  </span>
+                  <CalendarIcon className="ml-2" />
+                </Button>
+              </FormControl>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={field.value}
+                onSelect={field.onChange}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
           <FormMessage />
         </FormItem>
       )}
