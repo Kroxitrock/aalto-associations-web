@@ -4,6 +4,7 @@ import EventList from "@/components/EventList";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AssociationEventsProvider } from "@/provider/AssociationEventsProvider";
+import { AssociationProvider } from "@/provider/AssociationProvider";
 import { useNavigate, useParams } from "react-router-dom";
 import { AssociationTabsEnum } from "@/model/association";
 
@@ -29,7 +30,9 @@ function AssociationDetails() {
 
   return (
     <div className="flex flex-col items-center justify-between">
-      <AssociationHeader />
+      <AssociationProvider associationId={associationId}>
+        <AssociationHeader />
+      </AssociationProvider>
       <Tabs defaultValue={currentTab} className="w-full md:max-w-4xl">
         <TabsList>
           {/* TODO: Use the enum here as well */}
