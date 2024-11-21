@@ -9,8 +9,6 @@ import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
 import AssociationEventsProvider from "@/provider/AssociationEventsProvider";
 
 // TODO: Make the components wider for large screens
-// TODO: Load real data from the backend
-
 function AssociationDetails() {
   const { id } = useParams<{ id: string }>(); //TODO: create an interface Param here
   const navigate = useNavigate();
@@ -34,9 +32,8 @@ function AssociationDetails() {
       <AssociationDetailsProvider associationId={associationId}>
         <AssociationHeader />
       </AssociationDetailsProvider>
-      <Tabs defaultValue={currentTab} className="w-full md:max-w-4xl">
+      <Tabs defaultValue={currentTab} className="w-full">
         <TabsList>
-          {/* TODO: Use the enum here as well */}
           <TabsTrigger
             value="events"
             onClick={() => handleTabChange(AssociationTabsEnum.Events)}

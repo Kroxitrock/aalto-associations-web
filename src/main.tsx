@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Associations from "./routes/Associations.tsx";
 import EventDetails from "./routes/EventDetails.tsx";
 import AssociationDetails from "./routes/AssociationDetails.tsx";
+import CreateEvent from "./routes/CreateEvent.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,11 +24,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/associations/:id/about",
-    element: <AssociationDetails /> /* TODO: add provider */,
+    element: <AssociationDetails />,
   },
   {
     path: "/events/:id",
     element: <EventDetails />,
+  },
+  {
+    path: "/associations/:id/events/create",
+    element: <CreateEvent />,
   },
 ]);
 const queryClient = new QueryClient();
@@ -35,7 +40,9 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <div className="lg:max-w-4xl mx-auto p-6">
+        <RouterProvider router={router} />
+      </div>
     </QueryClientProvider>
   </StrictMode>
 );

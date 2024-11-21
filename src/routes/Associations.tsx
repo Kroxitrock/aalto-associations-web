@@ -5,7 +5,7 @@ import AssociationsProvider from "@/provider/AssociationsProvider";
 
 export default function Associations() {
   return (
-    <div className="flex flex-col items-center justify-start w-full md:max-w-4xl mx-auto">
+    <div className="flex flex-col items-center justify-start w-full">
       <Card className="bg-transparent w-full">
         <div className="flex flex-col p-4 leading-normal text-left">
           <CardTitle>Associations</CardTitle>

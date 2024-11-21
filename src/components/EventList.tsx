@@ -41,10 +41,12 @@ function EventList() {
               <CardFooter className="flex items-center justify-start mt-auto">
                 {new Date(event.date).toLocaleString()}
               </CardFooter>
-              <CardFooter>
-                <MapPin className="h-4 w-4 mr-2" />
-                {event.location}
-              </CardFooter>
+              {event.location && (
+                <CardFooter>
+                  <MapPin className="h-4 w-4 mr-2" />
+                  {event.location}
+                </CardFooter>
+              )}
             </div>
           </div>
           {event.capacity !== null && (
