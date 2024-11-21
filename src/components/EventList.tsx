@@ -11,14 +11,17 @@ import { useNavigate } from "react-router-dom";
 import { useMyEvents } from "@/contexts/MyEventsContext";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
 import UpcomingEventDto from "@/model/upcoming_event_dto";
+import { EventListType } from "@/model/event_list_type";
 
 type Props = {
-  provider: "association_events" | "my_events";
+  provider: EventListType;
 };
 
 function EventList({ provider }: Props) {
   const { data } =
-    provider === "my_events" ? useMyEvents() : useAssociationEvents();
+    provider === EventListType.my_events
+      ? useMyEvents()
+      : useAssociationEvents();
 
   const navigate = useNavigate();
   const navigateEvent = (eventId: number) => {
