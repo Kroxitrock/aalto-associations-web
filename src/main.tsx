@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Associations from "./routes/Associations.tsx";
 import EventDetails from "./routes/EventDetails.tsx";
 import AssociationDetails from "./routes/AssociationDetails.tsx";
-import AppHeader from "./components/ui/appheader.tsx";
+import Header from "./components/Header.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +36,7 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AppHeader/>
+      <Header/>
       <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>

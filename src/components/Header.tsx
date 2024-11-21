@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import { AssociationsProvider } from "@/provider/AssociationsProvider";
-import AssociationSearch from "../AssociationSearch";
+import AssociationSearch from "./AssociationSearch";
 
-function AppHeader() {
+function Header() {
   return (
     <header className="flex justify-between items-center px-6 py-4 bg-black shadow-md">
       <div className="flex items-center gap-2">
@@ -26,4 +26,4 @@ function AppHeader() {
   );
 }
 
-export default AppHeader;
+export default Header;
