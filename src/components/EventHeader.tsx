@@ -1,4 +1,4 @@
-import { useEvent } from "@/context/EventContext";
+import { useEvent } from "@/contexts/EventContext";
 import { Card, CardImage, CardTitle } from "./ui/card";
 
 function EventHeader() {

@@ -9,7 +9,7 @@ import {
   ViewContent,
   ViewTitle,
 } from "@/components/ui/splitView";
-import { useEvent } from "@/context/EventContext";
+import { useEvent } from "@/contexts/EventContext";
 import { EventProvider } from "@/provider/EventProvider";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
 import { useParams } from "react-router-dom";
@@ -18,7 +18,7 @@ import CircleChip from "@/components/ui/eventcirclechip";
 function EventDetails() {
   const { id } = useParams();
   if (!id) {
-    throw new Error("No association ID provided in the URL");
+    throw new Error("No event ID provided in the URL");
   }
   const eventId = parseInt(id, 10);
   return (
