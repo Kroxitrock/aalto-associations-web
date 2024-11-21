@@ -33,8 +33,7 @@ function EventList() {
               <CardTitle>{event.title}</CardTitle>
               <Button variant="action">Join</Button>
             </div>
-            {/* TODO: Shorter too long description */}
-            <CardDescription className="mt-4">
+            <CardDescription className="mt-4 max-h-16 line-clamp-3">
               {event.description}
             </CardDescription>
             <div className="flex justify-between items-center mt-auto">
