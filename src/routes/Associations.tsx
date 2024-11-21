@@ -1,8 +1,8 @@
 import AssociationList from "@/components/AssociationList";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import AssociationSearch from "@/components/AssociationSearch";
-import { AssociationsProvider } from "@/provider/AssociationsProvider";
 import { useLocation } from "react-router-dom";
+import AssociationsProvider from "@/provider/AssociationsProvider";
 
 export default function Associations() {
   const location = useLocation();
@@ -25,7 +25,7 @@ export default function Associations() {
         </div>
       </Card>
       <AssociationsProvider>
-        <AssociationSearch initialSearch={initialSearch}/>
+        <AssociationSearch initialSearch={initialSearch} />
         <AssociationList></AssociationList>
       </AssociationsProvider>
     </div>

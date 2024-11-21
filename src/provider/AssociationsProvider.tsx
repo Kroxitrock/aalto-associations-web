@@ -7,7 +7,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function AssociationsProvider({ children }: Props) {
+export default function AssociationsProvider({ children }: Props) {
   const [filter, setFilter] = useState<AssociationFilter>({ nameSearch: "" });
 
   const { data, isPending, error, refetch } = useGetAssociations(filter);

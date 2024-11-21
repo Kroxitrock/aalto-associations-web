@@ -1,4 +1,4 @@
-import { EventContext } from "@/context/EventContext";
+import { EventContext } from "@/contexts/EventContext";
 import { useGetEventById } from "@/hooks/useGetEventById";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function EventProvider({ eventId, children }: Props) {
+export default function EventProvider({ eventId, children }: Props) {
   const { data, isPending, error, refetch } = useGetEventById(eventId);
 
   return (

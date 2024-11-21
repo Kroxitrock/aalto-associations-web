@@ -6,27 +6,45 @@ import {
   ViewContent,
   ViewTitle,
 } from "@/components/ui/splitView";
+import { useParams } from "react-router-dom";
+import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
+import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
 
 function AssociationAbout() {
-  //{data} = useAssociationDetails()
+  const { id } = useParams();
+  if (!id) {
+    throw new Error("No association ID provided in the URL");
+  }
+  const associationId = parseInt(id, 10);
+  return (
+    <AssociationDetailsProvider associationId={associationId}>
+      <AssociationDetailsContent />
+    </AssociationDetailsProvider>
+  );
+}
+
+function AssociationDetailsContent() {
+  const context = useAssociationDetails();
+
+  if (!context) {
+    return <div>Loading...</div>;
+  }
+
+  const { data, isPending, error } = context;
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading association details</div>;
+  }
+
   return (
     <SplitView>
       <LeftView>
-        <ViewTitle>Desciption</ViewTitle>
-        <ViewContent>
-          {`Aalto Salsa Society ry is a vibrant and dynamic student association dedicated to the passion of salsa dancing.
-                Founded at Aalto University, this society has become a thriving community for individuals who love the energy and rhythm of Latin music.
-
-                Our Mission:
-                - To create a welcoming and inclusive environment for salsa enthusiasts of all levels.
-                - To promote the cultural richness and beauty of salsa dancing.
-                - To provide opportunities for members to learn, practice, and perform salsa.
-
-                What We Offer:
-                - Regular Salsa Classes: Learn from experienced instructors and master the fundamentals of salsa dancing.
-                - Practice Sessions: Refine your skills and connect with fellow dancers in a fun and supportive atmosphere.
-                - Social Events: Enjoy salsa parties, socials, and other events to meet new people and celebrate the joy of dancing.`}
-        </ViewContent>
+        <ViewTitle>Description</ViewTitle>
+        <ViewContent>{data?.description}</ViewContent>
       </LeftView>
       <RightView>
         <ViewTitle>Contacts</ViewTitle>

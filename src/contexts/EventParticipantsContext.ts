@@ -1,24 +1,24 @@
-import UpcomingEventDto from "@/model/upcoming_event_dto";
+import User from "@/model/user";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 
 interface Props {
-  data?: UpcomingEventDto[];
+  data?: User[];
   isPending: boolean;
   error: Error | null;
   refetch: (options?: RefetchOptions) => Promise<QueryObserverResult>;
 }
 
-export const AssociationEventsContext = createContext<Props | undefined>(
+export const EventParticipantsContext = createContext<Props | undefined>(
   undefined
 );
 
-export function useAssociationEvents() {
-  const context = useContext(AssociationEventsContext);
+export function useEventParticipants() {
+  const context = useContext(EventParticipantsContext);
 
   if (context === undefined) {
     throw new Error(
-      "useAssociationEvents must be used within a AssociationEventProvider"
+      "useEventParticipants must be used within a EventParticipantsProvider"
     );
   }
   return context;

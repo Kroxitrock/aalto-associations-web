@@ -9,16 +9,17 @@ import {
   ViewContent,
   ViewTitle,
 } from "@/components/ui/splitView";
-import { useEvent } from "@/context/EventContext";
-import { EventProvider } from "@/provider/EventProvider";
+import { useEvent } from "@/contexts/EventContext";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
 import { useParams } from "react-router-dom";
 import CircleChip from "@/components/ui/eventcirclechip";
+import EventProvider from "@/provider/EventProvider";
+import EventParticipantsProvider from "@/provider/EventParticipantsProvider";
 
 function EventDetails() {
   const { id } = useParams();
   if (!id) {
-    throw new Error("No association ID provided in the URL");
+    throw new Error("No event ID provided in the URL");
   }
   const eventId = parseInt(id, 10);
   return (
@@ -29,51 +30,55 @@ function EventDetails() {
 }
 
 function EventDetailsContent() {
-  const { data } = useEvent();
+  const { data, isPending, error } = useEvent();
 
   return (
-    <div className="flex flex-col items-center justify-between">
-      <EventHeader />
-      <Card className="bg-black">
-        {data?.date && (
-          <CircleChip
-            icon={<CalendarIcon className="h-12 w-12" />}
-            title={formatDateTime(data.date)}
-          />
-        )}
+    <div>
+      {isPending && <p>Loading event...</p>}
+      {error && <p>Error fetching event!</p>}
+      {data != undefined && (
+        <div className="flex flex-col items-center justify-between">
+          <EventHeader />
+          <Card className="bg-black">
+            {data.date && (
+              <CircleChip
+                icon={<CalendarIcon className="h-12 w-12" />}
+                title={formatDateTime(data.date)}
+              />
+            )}
 
-        {data?.location !== null && (
-          <CircleChip
-            icon={<MapPin className="h-12 w-12" />}
-            title={data?.location}
-          />
-        )}
+            {data.location !== null && (
+              <CircleChip
+                icon={<MapPin className="h-12 w-12" />}
+                title={data.location}
+              />
+            )}
+            {data.price !== null && (
+              <CircleChip
+                icon={<EuroIcon className="h-12 w-12" />}
+                title={data.price === 0 ? "Free" : data.price.toString()}
+              />
+            )}
+          </Card>
 
-        {/* Replace price with "Free" if 0 */}
-        {data?.price !== null && (
-          <CircleChip
-            icon={<EuroIcon className="h-12 w-12" />}
-            title={data?.price === 0 ? "Free" : data?.price.toString()}
-          />
-        )}
-      </Card>
+          <SplitView>
+            <LeftView>
+              <ViewTitle>Description</ViewTitle>
+              <ViewContent> {data.description}</ViewContent>
+            </LeftView>
+            <RightView>
+              <EventParticipantsProvider eventId={data.id}>
+                <MemberList />
+              </EventParticipantsProvider>
+            </RightView>
+          </SplitView>
 
-      <SplitView>
-        <LeftView>
-          <ViewTitle>Desciption</ViewTitle>
-          <ViewContent> {data?.description}</ViewContent>
-        </LeftView>
-        <RightView>
-          <ViewTitle>Participants</ViewTitle>
-          {/* TODO: Load from db */}
-          <MemberList />
-        </RightView>
-      </SplitView>
-
-      {/* TODO: Fix the place of the button to be on the bottom  */}
-      <Button variant="action" className="mb-4">
-        Join
-      </Button>
+          {/* TODO: Fix the place of the button to be on the bottom  */}
+          <Button variant="action" className="mb-4">
+            Join
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
