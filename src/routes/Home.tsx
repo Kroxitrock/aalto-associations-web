@@ -1,10 +1,9 @@
 import "./Home.css";
-import { AssociationEventsProvider } from "@/provider/AssociationEventsProvider";
 import EventList from "@/components/EventList";
 import AssociationsCarousel from "@/components/AssociationsCarousel";
 import { CardTitle } from "@/components/ui/card";
-import { AssociationsProvider } from "@/provider/AssociationsProvider";
-
+import { MyAssociationsProvider } from "@/provider/MyAssociationsProvider";
+import { MyEventsProvider } from "@/provider/MyEventProvider";
 function Home() {
   return (
     <div className="lg:max-w-4xl mx-auto p-6">
@@ -12,16 +11,16 @@ function Home() {
         My associations
       </CardTitle>
 
-      <AssociationsProvider>
+      <MyAssociationsProvider>
         <AssociationsCarousel />
-      </AssociationsProvider>
+      </MyAssociationsProvider>
 
       <CardTitle className="border-b border-white mb-4 mt-4">
         Upcoming Events
       </CardTitle>
-      <AssociationEventsProvider associationId={3}>
+      <MyEventsProvider>
         <EventList />
-      </AssociationEventsProvider>
+      </MyEventsProvider>
     </div>
   );
 }

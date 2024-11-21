@@ -1,11 +1,11 @@
-import { useAssociations } from "@/contexts/AssociationsContext";
+import { useMyAssociations } from "@/contexts/MyAssociationsContext";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardImage } from "./ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import { useNavigate } from "react-router-dom";
 
 function AssociationsCarousel() {
-  const { data, isPending, error } = useAssociations();
+  const { data, isPending, error } = useMyAssociations();
   const navigate = useNavigate();
   const navigateAssociation = (associationId: number) => {
     navigate(`/associations/${associationId}/events`);
