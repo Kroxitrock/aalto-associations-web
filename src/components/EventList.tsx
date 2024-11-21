@@ -8,11 +8,18 @@ import {
 } from "./ui/card";
 import { Button } from "./ui/button";
 import { MapPin, User } from "lucide-react";
-import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
 import { useNavigate } from "react-router-dom";
+import { useMyEvents } from "@/contexts/MyEventsContext";
+import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
 
-function EventList() {
-  const { data } = useAssociationEvents();
+type Props = {
+  provider: "association_events" | "my_events";
+};
+
+function EventList({ provider }: Props) {
+  const { data } =
+    provider === "my_events" ? useMyEvents() : useAssociationEvents();
+
   const navigate = useNavigate();
   const navigateEvent = (eventId: number) => {
     navigate(`/events/${eventId}`);

@@ -19,7 +19,7 @@ function Home() {
         Upcoming Events
       </CardTitle>
       <MyEventsProvider>
-        <EventList />
+        <EventList provider="my_events" />
       </MyEventsProvider>
     </div>
   );
