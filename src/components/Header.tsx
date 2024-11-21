@@ -5,6 +5,7 @@ import HeaderAssociationSearch from "./HeaderAssociationSearch";
 
 function Header() {
   return (
+    // TODO: Add on click on the logo to go to home
     <header className="flex justify-between items-center px-6 py-4 bg-black shadow-md">
       <div className="flex items-center gap-2">
         <div className="text-white text-2xl font-bold">A! Associations</div>

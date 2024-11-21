@@ -10,8 +10,7 @@ import { Check, MapPin, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMyEvents } from "@/contexts/MyEventsContext";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
-import UpcomingEventDto from "@/model/upcoming_event_dto";
-import { EventListType } from "@/model/event_list_type";
+import { EventListType, UpcomingEventDto } from "@/model/event";
 
 type Props = {
   provider: EventListType;
@@ -19,7 +18,7 @@ type Props = {
 
 function EventList({ provider }: Props) {
   const { data } =
-    provider === EventListType.my_events
+    provider === EventListType.MY_EVENTS
       ? useMyEvents()
       : useAssociationEvents();
 

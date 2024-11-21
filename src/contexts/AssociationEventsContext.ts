@@ -1,4 +1,4 @@
-import UpcomingEventDto from "@/model/upcoming_event_dto";
+import { UpcomingEventDto } from "@/model/event";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 
