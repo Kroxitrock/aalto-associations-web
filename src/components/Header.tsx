@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import { AssociationsProvider } from "@/provider/AssociationsProvider";
-import AssociationSearch from "./AssociationSearch";
+import HeaderAssociationSearch from "./HeaderAssociationSearch";
 
 function Header() {
   return (
@@ -14,8 +14,8 @@ function Header() {
 
       <div className="flex items-center gap-4">
       <AssociationsProvider>
-        <AssociationSearch></AssociationSearch>
-      </AssociationsProvider>
+        <HeaderAssociationSearch></HeaderAssociationSearch>
+      //</AssociationsProvider>
       {/* TO-DO: Add an if to change button to log-in / log out if user is logged in*/}
         <Button className="flex items-center gap-2 text-white text-sm whitespace-nowrap px-3 py-1 bg-transparent hover:bg-gray-800">
           <LogIn className="h-4 w-4" />
