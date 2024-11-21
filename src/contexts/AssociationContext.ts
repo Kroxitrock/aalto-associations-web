@@ -7,7 +7,9 @@ interface Props {
   error: Error | null;
 }
 
-const AssociationContext = createContext<AssociationContextType | null>(null);
+export const AssociationContext = createContext<AssociationContextType | null>(
+  null
+);
 
 export const useAssociation = () => {
   const context = useContext(AssociationContext);
@@ -18,5 +20,3 @@ export const useAssociation = () => {
   }
   return context;
 };
-
-export default AssociationContext;
