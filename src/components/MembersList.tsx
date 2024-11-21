@@ -15,7 +15,6 @@ function MemberList() {
       <div className="overflow-y-auto max-h-96">
         <ViewTitle>Participants - {data?.length} </ViewTitle>
         <Category>
-          {/* <CategoryTitle>Accepted</CategoryTitle> */}
           {data?.map((participant, index) => (
             <CategoryItem
               key={participant.id}
