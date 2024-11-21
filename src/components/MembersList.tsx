@@ -11,6 +11,7 @@ function MemberList() {
     <div>
       {isPending && <p>Loading participants...</p>}
       {error && <p>Error fetching participants!</p>}
+      {data?.length == 0 && <p>No participants yet.</p>}
       <div className="overflow-y-auto max-h-96">
         <ViewTitle>Participants - {data?.length} </ViewTitle>
         <Category>
