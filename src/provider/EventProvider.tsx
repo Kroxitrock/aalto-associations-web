@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function EventProvider({ eventId, children }: Props) {
+export default function EventProvider({ eventId, children }: Props) {
   const { data, isPending, error, refetch } = useGetEventById(eventId);
 
   return (

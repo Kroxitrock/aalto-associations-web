@@ -7,11 +7,8 @@ import {
   ViewTitle,
 } from "@/components/ui/splitView";
 import { useParams } from "react-router-dom";
-import {
-  AssociationProvider,
-} from "@/provider/AssociationProvider";
-import {useAssociation} from "@/contexts/AssociationContext";
-import AssociationHeader from "./AssociationHeader";
+import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
+import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
 
 function AssociationAbout() {
   const { id } = useParams();
@@ -20,22 +17,22 @@ function AssociationAbout() {
   }
   const associationId = parseInt(id, 10);
   return (
-    <AssociationProvider associationId={associationId}>
+    <AssociationDetailsProvider associationId={associationId}>
       <AssociationDetailsContent />
-    </AssociationProvider>
+    </AssociationDetailsProvider>
   );
 }
 
 function AssociationDetailsContent() {
-  const context = useAssociation();
+  const context = useAssociationDetails();
 
   if (!context) {
     return <div>Loading...</div>;
   }
 
-  const { data, isLoading, error } = context;
+  const { data, isPending, error } = context;
 
-  if (isLoading) {
+  if (isPending) {
     return <div>Loading...</div>;
   }
 

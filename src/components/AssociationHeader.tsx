@@ -1,8 +1,8 @@
 import { Card, CardImage, CardTitle } from "./ui/card";
-import { useAssociation } from "@/contexts/AssociationContext";
+import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
 
 function AssociationHeader() {
-  const { data, isLoading, error } = useAssociation();
+  const { data, isLoading, error } = useAssociationDetails();
 
   if (isLoading) {
     return <div>Loading...</div>;
