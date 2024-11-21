@@ -1,4 +1,3 @@
-import Event from "../model/event";
 import {
   Card,
   CardDescription,
@@ -7,10 +6,11 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { MapPin, User } from "lucide-react";
+import { Check, MapPin, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMyEvents } from "@/contexts/MyEventsContext";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
+import UpcomingEventDto from "@/model/upcoming_event_dto";
 
 type Props = {
   provider: "association_events" | "my_events";
@@ -28,7 +28,7 @@ function EventList({ provider }: Props) {
   return (
     <>
       {/* TODO: Event should be order by date... maybe in backeng */}
-      {data?.map((event: Event) => (
+      {data?.map((event: UpcomingEventDto) => (
         <Card
           onClick={() => navigateEvent(event.id)}
           key={event.id}
@@ -38,7 +38,12 @@ function EventList({ provider }: Props) {
           <div className="flex flex-col p-4 leading-normal w-full">
             <div className="flex flex-row gap-2 justify-between leading-normal">
               <CardTitle>{event.title}</CardTitle>
-              <Button variant="action">Join</Button>
+              {!event.joined && <Button variant="action">Join</Button>}
+              {event.joined && (
+                <Button variant="icon">
+                  <Check className="h-4 w-4" /> Joined
+                </Button>
+              )}
             </div>
             {/* TODO: Shorter too long description */}
             <CardDescription className="mt-4">
