@@ -9,8 +9,8 @@ import {
 import { useParams } from "react-router-dom";
 import {
   AssociationProvider,
-  useAssociation,
 } from "@/provider/AssociationProvider";
+import {useAssociation} from "@/contexts/AssociationContext";
 import AssociationHeader from "./AssociationHeader";
 
 function AssociationAbout() {
@@ -21,7 +21,6 @@ function AssociationAbout() {
   const associationId = parseInt(id, 10);
   return (
     <AssociationProvider associationId={associationId}>
-      {/* <AssociationHeader /> */}
       <AssociationDetailsContent />
     </AssociationProvider>
   );

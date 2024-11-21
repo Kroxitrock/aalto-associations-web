@@ -1,5 +1,5 @@
 import { Card, CardImage, CardTitle } from "./ui/card";
-import { useAssociation } from "@/provider/AssociationProvider";
+import { useAssociation } from "@/contexts/AssociationContext";
 
 function AssociationHeader() {
   const { data, isLoading, error } = useAssociation();

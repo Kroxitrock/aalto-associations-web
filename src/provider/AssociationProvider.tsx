@@ -1,13 +1,5 @@
-import { createContext, useContext } from "react";
 import { useGetAssociationDetails } from "@/hooks/useGetAssociationDetails";
-
-interface AssociationContextType {
-  data: any;
-  isLoading: boolean;
-  error: any;
-}
-
-const AssociationContext = createContext<AssociationContextType | null>(null);
+import AssociationContext from "@/contexts/AssociationContext";
 
 interface AssociationProviderProps {
   associationId: number;
@@ -25,14 +17,4 @@ export const AssociationProvider = ({
       {children}
     </AssociationContext.Provider>
   );
-};
-
-export const useAssociation = () => {
-  const context = useContext(AssociationContext);
-  if (!context) {
-    throw new Error(
-      "useAssociation must be used within an AssociationProvider"
-    );
-  }
-  return context;
 };

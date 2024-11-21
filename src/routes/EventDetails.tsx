@@ -9,7 +9,7 @@ import {
   ViewContent,
   ViewTitle,
 } from "@/components/ui/splitView";
-import { useEvent } from "@/context/EventContext";
+import { useEvent } from "@/contexts/EventContext";
 import { EventProvider } from "@/provider/EventProvider";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
 import { useParams } from "react-router-dom";
