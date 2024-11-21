@@ -1,28 +1,36 @@
-import { useAssociations } from "@/contexts/AssociationsContext";
+import { useMyAssociations } from "@/contexts/MyAssociationsContext";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardImage } from "./ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import { useNavigate } from "react-router-dom";
 
 function AssociationsCarousel() {
-  const { data, isPending, error } = useAssociations();
+  const { data, isPending, error } = useMyAssociations();
   const navigate = useNavigate();
   const navigateAssociation = (associationId: number) => {
     navigate(`/associations/${associationId}/events`);
+  };
+
+  const navigateAllAssociations = () => {
+    navigate(`/associations/`);
   };
   return (
     <div>
       {isPending && <p>Loading associations...</p>}
       {error && <p>Error fetching associations!</p>}
 
-      {data?.length === 0 && <p>No associations found.</p>}
       <Carousel
         opts={{
           align: "start",
         }}
         className="lg:max-w-5xl bg-shadowDark"
       >
-        <CarouselContent className="flex justify-center">
+        <CarouselContent className="flex justify-center items-center min-h-20">
+          {data?.length === 0 && (
+            <Button onClick={() => navigateAllAssociations()}>
+              Explore associations
+            </Button>
+          )}
           {data?.map((association) => (
             <CarouselItem
               key={association.id}

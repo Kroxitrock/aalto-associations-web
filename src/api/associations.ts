@@ -2,7 +2,6 @@ import { Association, AssociationFilter } from "@/model/association";
 import axios from "axios";
 
 const path = "/associations";
-
 export function getAssociations(
   filter?: AssociationFilter
 ): Promise<Association[]> {

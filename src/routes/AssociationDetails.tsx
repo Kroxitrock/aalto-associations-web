@@ -52,7 +52,7 @@ function AssociationDetails() {
         </TabsList>
         <TabsContent value="events">
           <AssociationEventsProvider associationId={associationId}>
-            <EventList />
+            <EventList provider="association_events" />
           </AssociationEventsProvider>
         </TabsContent>
         <TabsContent value="about">
