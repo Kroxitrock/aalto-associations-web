@@ -19,6 +19,8 @@ export function getMyAssociations(): Promise<Association[]> {
 
 export function getMyEvents(): Promise<Event[]> {
   return axios
-    .get(import.meta.env.VITE_API_URL + path + "/me/events")
+    .get(
+      import.meta.env.VITE_API_URL + path + "/me/associations/events/upcoming"
+    )
     .then((response) => response.data as Event[]);
 }
