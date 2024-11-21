@@ -1,7 +1,7 @@
 import AssociationList from "@/components/AssociationList";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import AssociationSearch from "@/components/AssociationSearch";
-import { AssociationsProvider } from "@/provider/AssociationsProvider";
+import AssociationsProvider from "@/provider/AssociationsProvider";
 
 export default function Associations() {
   return (
