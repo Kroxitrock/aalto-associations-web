@@ -15,7 +15,7 @@ function Header() {
       <div className="flex items-center gap-4">
       <AssociationsProvider>
         <HeaderAssociationSearch></HeaderAssociationSearch>
-      //</AssociationsProvider>
+      </AssociationsProvider>
       {/* TO-DO: Add an if to change button to log-in / log out if user is logged in*/}
         <Button className="flex items-center gap-2 text-white text-sm whitespace-nowrap px-3 py-1 bg-transparent hover:bg-gray-800">
           <LogIn className="h-4 w-4" />

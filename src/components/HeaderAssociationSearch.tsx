@@ -6,7 +6,9 @@ export default function HeaderAssociationSearch() {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
-  const search = () => {navigate(`/associations/`); };
+  const search = () => {
+    navigate("/associations", { state: { search: searchValue } });
+  };
 
   return (
     <div className="w-full flex flex-row justify-start">
