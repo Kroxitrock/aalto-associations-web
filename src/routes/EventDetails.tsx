@@ -1,7 +1,7 @@
 import EventHeader from "@/components/EventHeader";
 import MemberList from "@/components/MembersList";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   LeftView,
   RightView,
@@ -13,6 +13,7 @@ import { useEvent } from "@/context/EventContext";
 import { EventProvider } from "@/provider/EventProvider";
 import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
 import { useParams } from "react-router-dom";
+import CircleChip from "@/components/ui/eventcirclechip";
 
 function EventDetails() {
   const { id } = useParams();
@@ -35,35 +36,25 @@ function EventDetailsContent() {
       <EventHeader />
       <Card className="bg-black">
         {data?.date && (
-          <CardContent className="flex flex-col items-center w-52">
-            <div className="h-16 w-16 bg-customYellow rounded-full text-black p-2">
-              <CalendarIcon className="h-12 w-12" />
-            </div>
-
-            <CardTitle className="text-center mt-4">
-              {formatDateTime(data.date)}
-            </CardTitle>
-          </CardContent>
+          <CircleChip
+            icon={<CalendarIcon className="h-12 w-12" />}
+            title={formatDateTime(data.date)}
+          />
         )}
 
         {data?.location !== null && (
-          <CardContent className="flex flex-col items-center w-52">
-            <div className="h-16 w-16 bg-customYellow rounded-full text-black p-2">
-              <MapPin className="h-12 w-12" />
-            </div>
-
-            <CardTitle className="text-center mt-4">{data?.location}</CardTitle>
-          </CardContent>
+          <CircleChip
+            icon={<MapPin className="h-12 w-12" />}
+            title={data?.location}
+          />
         )}
 
-        {/* TODO: If price is 0 replace with Free */}
+        {/* Replace price with "Free" if 0 */}
         {data?.price !== null && (
-          <CardContent className="flex flex-col items-center w-52">
-            <div className="h-16 w-16 bg-customYellow rounded-full text-black p-2">
-              <EuroIcon className="h-12 w-12" />
-            </div>
-            <CardTitle className="text-center mt-4">{data?.price}</CardTitle>
-          </CardContent>
+          <CircleChip
+            icon={<EuroIcon className="h-12 w-12" />}
+            title={data?.price === 0 ? "Free" : data?.price.toString()}
+          />
         )}
       </Card>
 

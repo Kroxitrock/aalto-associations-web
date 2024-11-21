@@ -12,3 +12,8 @@ export interface Association {
 export interface AssociationFilter {
   nameSearch?: string;
 }
+
+export enum AssociationTabsEnum{
+  About = "about",
+  Events = "events",
+}
