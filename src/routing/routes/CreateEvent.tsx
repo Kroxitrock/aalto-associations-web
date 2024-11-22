@@ -40,7 +40,7 @@ export default function CreateEvent() {
   const { mutate } = useMutation({
     mutationFn: createEvent,
     onSuccess: () => {
-      navigate(`/associations/${associationId}`);
+      navigate(`/associations/${associationId}/events`);
       toast({
         duration: 2000,
         description: "Event created successfuly!",
@@ -68,6 +68,8 @@ export default function CreateEvent() {
       associationId,
     };
 
+    //TODO: Date time is not saved in the db, probably backend issue
+    //TODO: How should we handle images
     mutate(event);
   }
 

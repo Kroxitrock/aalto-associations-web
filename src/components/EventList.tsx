@@ -51,9 +51,11 @@ function EventList({ provider }: Props) {
               {event.description}
             </CardDescription>
             <div className="flex justify-between items-center mt-auto">
-              <CardFooter className="flex items-center justify-start mt-auto">
-                {new Date(event.date).toLocaleString()}
-              </CardFooter>
+              {event.date && (
+                <CardFooter className="flex items-center justify-start mt-auto">
+                  {new Date(event.date).toLocaleString()}
+                </CardFooter>
+              )}
               {event.location && (
                 <CardFooter>
                   <MapPin className="h-4 w-4 mr-2" />
