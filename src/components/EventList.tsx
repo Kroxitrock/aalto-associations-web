@@ -32,7 +32,7 @@ function EventList({ provider }: Props) {
   const { mutate } = useMutation({
     mutationFn: joinEvent,
     onSuccess: () => {
-      refetch();
+      setTimeout(refetch);
     },
     onError: () => {
       console.log("Error joining event");
