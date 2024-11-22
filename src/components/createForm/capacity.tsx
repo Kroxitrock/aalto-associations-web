@@ -17,7 +17,15 @@ function Capacity({ form }: CreateFormProp) {
         <FormItem className="w-1/2">
           <FormLabel>Capacity</FormLabel>
           <FormControl>
-            <Input className="" placeholder="Paricipents capacity" {...field} />
+            <Input
+              className=""
+              placeholder="Paricipents capacity"
+              {...field}
+              onChange={(e) => {
+                const value = e.target.value ? parseFloat(e.target.value) : 0;
+                field.onChange(value);
+              }}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
