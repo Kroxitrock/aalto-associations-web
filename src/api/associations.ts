@@ -9,3 +9,9 @@ export function getAssociations(
     .get(import.meta.env.VITE_API_URL + path, { params: filter })
     .then((response) => response.data as Association[]);
 }
+
+export function joinAssociation(associationId: number) {
+  return axios.post(
+    `${import.meta.env.VITE_API_URL}${path}/${associationId}/join`
+  );
+}
