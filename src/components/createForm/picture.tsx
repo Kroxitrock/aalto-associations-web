@@ -6,9 +6,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Prop } from "./createEventProp";
+import { CreateFormProp } from "./createFormProp";
 
-function Picture({ form }: Prop) {
+function Picture({ form }: CreateFormProp) {
   return (
     <FormField
       control={form.control}

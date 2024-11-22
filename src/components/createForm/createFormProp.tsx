@@ -17,6 +17,6 @@ export const formSchema = z.object({
 });
 type FormData = z.infer<typeof formSchema>;
 
-export interface Prop {
+export interface CreateFormProp {
   form: UseFormReturn<FormData, any, undefined>;
 }
