@@ -2,9 +2,9 @@ import { Card, CardImage, CardTitle } from "./ui/card";
 import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
 
 function AssociationHeader() {
-  const { data, isLoading, error } = useAssociationDetails();
+  const { data, isPending, error } = useAssociationDetails();
 
-  if (isLoading) {
+  if (isPending) {
     return <div>Loading...</div>;
   }
 
