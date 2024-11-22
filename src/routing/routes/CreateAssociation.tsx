@@ -21,6 +21,15 @@ import MembershipFee, {
 } from "@/components/createForm/membershipFee";
 import { Association, AssociationRoleEnum } from "@/model/association";
 import { createAssociation } from "@/api/associations";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 export default function CreateAssociation() {
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -34,7 +43,7 @@ export default function CreateAssociation() {
   const { mutate } = useMutation({
     mutationFn: createAssociation,
     onSuccess: () => {
-      navigate(`/associations`);
+      closeForm();
       toast({
         duration: 2000,
         description: "Association created successfuly!",
@@ -72,6 +81,10 @@ export default function CreateAssociation() {
     mutate(association);
   }
 
+  function closeForm() {
+    navigate(`/associations`);
+  }
+
   return (
     <div className="bg-shadowDark p-8 text-black">
       <CardTitle className="border-b border-white text-4xl mb-8 text-white">
@@ -90,9 +103,29 @@ export default function CreateAssociation() {
             <Telegram form={form} />
           </div>
           <Picture form={form} />
-          <Button type="submit" variant="action">
+          <Button type="submit" variant="action" className="mr-4">
             Create
           </Button>
+          <Dialog>
+            <DialogTrigger>
+              <Button type="button" variant="info">
+                Cancel
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-black">
+              <DialogHeader>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
+                  Are you sure you do not want to creata this association?
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button type="submit" onClick={closeForm}>
+                  Confirm
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </form>
       </Form>
     </div>

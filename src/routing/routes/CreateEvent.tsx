@@ -19,6 +19,16 @@ import { useMutation } from "@tanstack/react-query";
 import { createEvent } from "@/api/event";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 export default function CreateEvent() {
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -40,7 +50,7 @@ export default function CreateEvent() {
   const { mutate } = useMutation({
     mutationFn: createEvent,
     onSuccess: () => {
-      navigate(`/associations/${associationId}/events`);
+      closeForm();
       toast({
         duration: 2000,
         description: "Event created successfuly!",
@@ -55,6 +65,10 @@ export default function CreateEvent() {
       });
     },
   });
+
+  function closeForm() {
+    navigate(`/associations/${associationId}/events`);
+  }
 
   async function onSubmit(values: z.infer<typeof formSchemaEvent>) {
     let base64Picture = undefined;
@@ -95,9 +109,29 @@ export default function CreateEvent() {
             <Capacity form={form} />
           </div>
           <Picture form={form} />
-          <Button type="submit" variant="action">
+          <Button type="submit" variant="action" className="mr-4">
             Create
           </Button>
+          <Dialog>
+            <DialogTrigger>
+              <Button type="button" variant="info">
+                Cancel
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-black">
+              <DialogHeader>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
+                  Are you sure you do not want to creata this event?
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button type="submit" onClick={closeForm}>
+                  Confirm
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </form>
       </Form>
     </div>
