@@ -6,44 +6,38 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
 import Picture from "@/components/createForm/picture";
-import Capacity from "@/components/createForm/capacity";
 import Description from "@/components/createForm/description";
 import Title from "@/components/createForm/title";
-import Location from "@/components/createForm/location";
-import Price, { fileToBase64 } from "@/components/createForm/price";
-import DatePicker from "@/components/createForm/datePicker";
-import { formSchemaEvent } from "@/components/createForm/createFormProp";
+import { formSchemaAssociation } from "@/components/createForm/createFormProp";
 import { z } from "zod";
-import Event from "@/model/event";
 import { useMutation } from "@tanstack/react-query";
-import { createEvent } from "@/api/event";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-export default function CreateEvent() {
+import Telegram from "@/components/createForm/telegram";
+import Phone from "@/components/createForm/phone";
+import Email from "@/components/createForm/email";
+import MembershipFee, {
+  fileToBase64,
+} from "@/components/createForm/membershipFee";
+import { Association, AssociationRoleEnum } from "@/model/association";
+import { createAssociation } from "@/api/associations";
+export default function CreateAssociation() {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
 
-  if (!id) {
-    throw new Error("No association ID provided in the URL");
-  }
-  const associationId = parseInt(id, 10);
-
-  const form = useForm<z.infer<typeof formSchemaEvent>>({
-    resolver: zodResolver(formSchemaEvent),
+  const form = useForm<z.infer<typeof formSchemaAssociation>>({
+    resolver: zodResolver(formSchemaAssociation),
     defaultValues: {
       title: "",
-      price: undefined,
-      location: "",
     },
   });
   const { mutate } = useMutation({
-    mutationFn: createEvent,
+    mutationFn: createAssociation,
     onSuccess: () => {
-      navigate(`/associations/${associationId}/events`);
+      navigate(`/associations`);
       toast({
         duration: 2000,
-        description: "Event created successfuly!",
+        description: "Association created successfuly!",
       });
     },
     onError: () => {
@@ -56,43 +50,44 @@ export default function CreateEvent() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchemaEvent>) {
+  async function onSubmit(values: z.infer<typeof formSchemaAssociation>) {
     let base64Picture = undefined;
 
     if (values.picture instanceof File) {
       base64Picture = await fileToBase64(values.picture);
     }
 
-    const event: Event = {
-      title: values.title,
+    const association: Association = {
+      name: values.title,
       description: values.description,
-      picture: base64Picture,
-      date: values.date,
-      location: values.location,
-      price: values.price || 0,
-      capacity: values.capacity,
-      associationId,
+      logo: base64Picture,
+      telegram: values.telegram,
+      phone: values.phone,
+      email: values.email,
+      membership_fee: values.membershipFee || 0,
+      id: 0,
+      role: AssociationRoleEnum.LEADER,
     };
-    mutate(event);
+    console.log("mutate");
+    mutate(association);
   }
 
   return (
     <div className="bg-shadowDark p-8 text-black">
       <CardTitle className="border-b border-white text-4xl mb-8 text-white">
-        Create new event
+        Create new association
       </CardTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <Title form={form} />
           <Description form={form} />
           <div className="flex flex-row  space-x-4">
-            <DatePicker form={form} />
-            <Location form={form} />
+            <MembershipFee form={form} />
+            <Phone form={form} />
           </div>
-
           <div className="flex flex-row  space-x-4">
-            <Price form={form} />
-            <Capacity form={form} />
+            <Email form={form} />
+            <Telegram form={form} />
           </div>
           <Picture form={form} />
           <Button type="submit" variant="action">

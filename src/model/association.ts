@@ -1,12 +1,13 @@
 export interface Association {
   id: number;
   name: string;
-  logo: string;
-  description: string;
-  telegram: string;
-  phone: string;
-  email: string;
-  membership_fee: number;
+  logo?: string;
+  description?: string;
+  telegram?: string;
+  phone?: string;
+  email?: string;
+  membership_fee?: number;
+  role: AssociationRoleEnum;
 }
 
 export interface AssociationFilter {
@@ -16,4 +17,9 @@ export interface AssociationFilter {
 export enum AssociationTabsEnum {
   ABOUT = "about",
   EVENTS = "events",
+}
+
+export enum AssociationRoleEnum {
+  MEMBER,
+  LEADER,
 }

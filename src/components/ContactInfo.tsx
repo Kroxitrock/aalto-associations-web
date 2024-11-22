@@ -1,4 +1,4 @@
-import { Category, CategoryItem, CategoryTitle } from "./ui/category";
+import { Category, CategoryTitle } from "./ui/category";
 import CircleChip from "@/components/ui/contactchip";
 import { Mail, Phone, Send } from "lucide-react";
 
@@ -20,10 +20,6 @@ function ContactInfo() {
           icon={<Mail className="text-black h-4 w-4" />}
           title="salsa@aalto.fi"
         />
-      </Category>
-      <Category>
-        <CategoryTitle>Address</CategoryTitle>
-        <CategoryItem>JMT 1</CategoryItem>
       </Category>
     </div>
   );

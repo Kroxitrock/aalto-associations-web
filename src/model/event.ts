@@ -1,12 +1,13 @@
 export default interface Event {
-  id: number;
+  id?: number;
   title: string;
-  description: string;
-  picture: string;
-  date: Date;
-  location: string;
+  description?: string;
+  picture?: string;
+  date?: Date;
+  location?: string;
   price: number;
-  capacity: number;
+  capacity?: number;
+  associationId: number;
 }
 
 export interface UpcomingEventDto {
@@ -20,6 +21,7 @@ export interface UpcomingEventDto {
   capacity: number;
   associationName: string;
   joined: boolean;
+  participants: number;
 }
 
 export enum EventListType {
