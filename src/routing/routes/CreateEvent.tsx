@@ -1,7 +1,7 @@
 import { CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { z } from "zod";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -22,21 +22,9 @@ import { Input } from "@/components/ui/input";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-
-const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title is required.",
-  }),
-  description: z.string().optional(),
-  date: z.string().optional(),
-  location: z.string().optional(),
-  price: z.number().min(0, {
-    message: "Price is required. 0 means free. ",
-  }),
-  capacity: z.number().optional(),
-  dob: z.date().optional(),
-});
-type FormData = z.infer<typeof formSchema>;
+import Picture from "@/components/createForm/picture";
+import { Prop, formSchema } from "@/components/createForm/createEventProp";
+import { z } from "zod";
 
 export default function CreateEvent() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,18 +49,14 @@ export default function CreateEvent() {
             <Price form={form} />
             <Capacity form={form} />
           </div>
-
+          <Picture form={form} />
           <Button type="submit" variant="action">
-            Submit
+            Create
           </Button>
         </form>
       </Form>
     </div>
   );
-}
-
-interface Prop {
-  form: UseFormReturn<FormData, any, undefined>;
 }
 
 function Title({ form }: Prop) {
@@ -120,7 +104,7 @@ function Date({ form }: Prop) {
   return (
     <FormField
       control={form.control}
-      name="dob"
+      name="date"
       render={({ field }) => (
         <FormItem className="w-1/2 flex flex-col mt-3">
           <FormLabel>Pick a date</FormLabel>
