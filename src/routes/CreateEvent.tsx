@@ -118,7 +118,6 @@ function Description({ form }: Prop) {
 }
 
 // TODO: font is different
-// TODO: put time
 function Date({ form }: Prop) {
   return (
     <FormField
