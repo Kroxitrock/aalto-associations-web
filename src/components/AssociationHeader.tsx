@@ -6,10 +6,12 @@ import { Check, Pencil } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { joinAssociation } from "@/api/associations";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 function AssociationHeader() {
   const { data, refetch, isPending, error } = useAssociationDetails();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const { mutate } = useMutation({
     mutationFn: joinAssociation,
@@ -61,6 +63,16 @@ function AssociationHeader() {
           {data.role === AssociationRoleEnum.LEADER && (
             <Button className="absolute bottom-4 right-4 px-4" variant="icon">
               <Pencil className="h-4 w-4" /> Edit
+            </Button>
+          )}
+
+          {data.role === AssociationRoleEnum.LEADER && (
+            <Button
+              className="fixed bottom-4 left-1/2 transform -translate-x-1/2"
+              variant={"action"}
+              onClick={() => navigate(`/associations/${data.id}/events/create`)}
+            >
+              Create event
             </Button>
           )}
         </Card>
