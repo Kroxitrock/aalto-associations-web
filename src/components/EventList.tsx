@@ -11,13 +11,15 @@ import { useNavigate } from "react-router-dom";
 import { useMyEvents } from "@/contexts/MyEventsContext";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
 import { EventListType, UpcomingEventDto } from "@/model/event";
+import { useMutation } from "@tanstack/react-query";
+import { joinEvent } from "@/api/event";
 
 type Props = {
   provider: EventListType;
 };
 
 function EventList({ provider }: Props) {
-  const { data } =
+  const { data, refetch } =
     provider === EventListType.MY_EVENTS
       ? useMyEvents()
       : useAssociationEvents();
@@ -26,6 +28,17 @@ function EventList({ provider }: Props) {
   const navigateEvent = (eventId: number) => {
     navigate(`/events/${eventId}`);
   };
+
+  const { mutate } = useMutation({
+    mutationFn: joinEvent,
+    onSuccess: () => {
+      refetch();
+    },
+    onError: () => {
+      console.log("Error joining event");
+      //TODO: Put toast
+    },
+  });
 
   return (
     <>
@@ -40,7 +53,17 @@ function EventList({ provider }: Props) {
           <div className="flex flex-col p-4 leading-normal w-full">
             <div className="flex flex-row gap-2 justify-between leading-normal">
               <CardTitle>{event.title}</CardTitle>
-              {!event.joined && <Button variant="action">Join</Button>}
+              {!event.joined && (
+                <Button
+                  variant="action"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    mutate(event.id);
+                  }}
+                >
+                  Join
+                </Button>
+              )}
               {event.joined && (
                 <Button variant="icon">
                   <Check className="h-4 w-4" /> Joined
