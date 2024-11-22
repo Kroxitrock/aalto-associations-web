@@ -7,6 +7,7 @@ export interface Association {
   phone: string;
   email: string;
   membership_fee: number;
+  role: AssociationRoleEnum;
 }
 
 export interface AssociationFilter {
@@ -16,4 +17,9 @@ export interface AssociationFilter {
 export enum AssociationTabsEnum {
   ABOUT = "about",
   EVENTS = "events",
+}
+
+export enum AssociationRoleEnum {
+  MEMBER,
+  LEADER,
 }
