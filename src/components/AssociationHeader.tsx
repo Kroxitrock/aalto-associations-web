@@ -3,9 +3,23 @@ import { Button } from "./ui/button";
 import { Card, CardImage, CardTitle } from "./ui/card";
 import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
 import { Check, Pencil } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { joinAssociation } from "@/api/associations";
 
 function AssociationHeader() {
-  const { data, isPending, error } = useAssociationDetails();
+  const { data, refetch, isPending, error } = useAssociationDetails();
+
+  const { mutate } = useMutation({
+    mutationFn: joinAssociation,
+    onSuccess: () => {
+      refetch();
+    },
+    onError: (e) => {
+      console.log(e);
+      //TODO: Put toast
+    },
+  });
+
   return (
     <div className="w-full">
       {isPending && <div>Loading...</div>}
@@ -26,6 +40,7 @@ function AssociationHeader() {
             <Button
               className="absolute bottom-4 right-4 px-4"
               variant={"action"}
+              onClick={() => mutate(data.id)}
             >
               Join
             </Button>
