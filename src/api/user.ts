@@ -1,7 +1,7 @@
 import axios from "axios";
 import User from "../model/user";
 import { Association } from "@/model/association";
-import UpcomingEventDto from "@/model/upcoming_event_dto";
+import { UpcomingEventDto } from "@/model/event";
 
 const path = "/users";
 

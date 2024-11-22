@@ -16,7 +16,7 @@ export default function SearchBar({
   onClick,
 }: Props) {
   return (
-    <div className="flex items-center p-2 bg-black border ml-2">
+    <div className="flex items-center px-2 bg-black border ml-2">
       <Input
         value={value}
         onChange={onChange}

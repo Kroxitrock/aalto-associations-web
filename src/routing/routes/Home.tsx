@@ -2,8 +2,9 @@ import "./Home.css";
 import EventList from "@/components/EventList";
 import AssociationsCarousel from "@/components/AssociationsCarousel";
 import { CardTitle } from "@/components/ui/card";
-import AssociationsProvider from "@/provider/AssociationsProvider";
-import AssociationEventsProvider from "@/provider/AssociationEventsProvider";
+import { MyAssociationsProvider } from "@/provider/MyAssociationsProvider";
+import { MyEventsProvider } from "@/provider/MyEventProvider";
+import { EventListType } from "@/model/event";
 
 function Home() {
   return (
@@ -20,7 +21,7 @@ function Home() {
         Upcoming Events
       </CardTitle>
       <MyEventsProvider>
-        <EventList provider="my_events" />
+        <EventList provider={EventListType.MY_EVENTS} />
       </MyEventsProvider>
     </div>
   );

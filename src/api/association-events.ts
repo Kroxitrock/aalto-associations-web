@@ -1,4 +1,4 @@
-import UpcomingEventDto from "@/model/upcoming_event_dto";
+import { UpcomingEventDto } from "@/model/event";
 import axios from "axios";
 
 export function getAssociationEvents(
