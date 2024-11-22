@@ -1,9 +1,13 @@
 import AssociationList from "@/components/AssociationList";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import AssociationSearch from "@/components/AssociationSearch";
+import { useLocation } from "react-router-dom";
 import AssociationsProvider from "@/provider/AssociationsProvider";
 
 export default function Associations() {
+  const location = useLocation();
+  const initialSearch = location.state?.search || "";
+
   return (
     <div className="flex flex-col items-center justify-start w-full">
       <Card className="bg-transparent w-full">
@@ -21,7 +25,7 @@ export default function Associations() {
         </div>
       </Card>
       <AssociationsProvider>
-        <AssociationSearch></AssociationSearch>
+        <AssociationSearch initialSearch={initialSearch} />
         <AssociationList></AssociationList>
       </AssociationsProvider>
     </div>

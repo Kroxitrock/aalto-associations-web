@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
-import { toast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -23,7 +22,6 @@ import { Input } from "@/components/ui/input";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import React from "react";
 
 const formSchema = z.object({
   title: z.string().min(1, {

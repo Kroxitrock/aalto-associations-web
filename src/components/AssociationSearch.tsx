@@ -1,10 +1,22 @@
 import { useAssociations } from "@/contexts/AssociationsContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./ui/searchBar";
 
-export default function AssociationSearch() {
-  const [searchValue, setSearchValue] = useState("");
+interface Props {
+  initialSearch?: string;
+}
+
+export default function AssociationSearch({ initialSearch = "" }: Props) {
+  const [searchValue, setSearchValue] = useState(initialSearch);
   const { filter, setFilter, refetch } = useAssociations();
+
+  useEffect(() => {
+    // Automatically perform search if initialSearch is provided
+    if (initialSearch) {
+      setFilter({ ...filter, nameSearch: initialSearch });
+      setTimeout(refetch);
+    }
+  }, [initialSearch, setFilter, refetch]);
 
   const search = () => {
     setFilter({ ...filter, nameSearch: searchValue });
