@@ -10,7 +10,7 @@ import Capacity from "@/components/createForm/capacity";
 import Description from "@/components/createForm/description";
 import Title from "@/components/createForm/title";
 import Location from "@/components/createForm/location";
-import Price from "@/components/createForm/price";
+import Price, { fileToBase64 } from "@/components/createForm/price";
 import DatePicker from "@/components/createForm/datePicker";
 import { formSchema } from "@/components/createForm/createFormProp";
 import { z } from "zod";
@@ -56,11 +56,17 @@ export default function CreateEvent() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    let base64Picture = undefined;
+
+    if (values.picture instanceof File) {
+      base64Picture = await fileToBase64(values.picture);
+    }
+
     const event: Event = {
       title: values.title,
       description: values.description,
-      picture: values.picture ? values.picture.name : undefined,
+      picture: base64Picture,
       date: values.date,
       location: values.location,
       price: values.price || 0,
