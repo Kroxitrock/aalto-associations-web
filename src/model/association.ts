@@ -6,7 +6,7 @@ export interface Association {
   telegram?: string;
   phone?: string;
   email?: string;
-  membershipFee?: number;
+  membership_fee?: number;
   role: AssociationRoleEnum;
 }
 

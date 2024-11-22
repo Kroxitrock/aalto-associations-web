@@ -12,7 +12,7 @@ import Title from "@/components/createForm/title";
 import Location from "@/components/createForm/location";
 import Price, { fileToBase64 } from "@/components/createForm/price";
 import DatePicker from "@/components/createForm/datePicker";
-import { formSchema } from "@/components/createForm/createFormProp";
+import { formSchemaEvent } from "@/components/createForm/createFormProp";
 import { z } from "zod";
 import Event from "@/model/event";
 import { useMutation } from "@tanstack/react-query";
@@ -29,8 +29,8 @@ export default function CreateEvent() {
   }
   const associationId = parseInt(id, 10);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof formSchemaEvent>>({
+    resolver: zodResolver(formSchemaEvent),
     defaultValues: {
       title: "",
       price: undefined,
@@ -56,7 +56,7 @@ export default function CreateEvent() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchemaEvent>) {
     let base64Picture = undefined;
 
     if (values.picture instanceof File) {

@@ -8,7 +8,7 @@ import { Form } from "@/components/ui/form";
 import Picture from "@/components/createForm/picture";
 import Description from "@/components/createForm/description";
 import Title from "@/components/createForm/title";
-import { formSchema } from "@/components/createForm/createFormProp";
+import { formSchemaAssociation } from "@/components/createForm/createFormProp";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -25,12 +25,10 @@ export default function CreateAssociation() {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof formSchemaAssociation>>({
+    resolver: zodResolver(formSchemaAssociation),
     defaultValues: {
       title: "",
-      price: undefined,
-      location: "",
     },
   });
   const { mutate } = useMutation({
@@ -52,7 +50,7 @@ export default function CreateAssociation() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchemaAssociation>) {
     let base64Picture = undefined;
 
     if (values.picture instanceof File) {
@@ -66,11 +64,11 @@ export default function CreateAssociation() {
       telegram: values.telegram,
       phone: values.phone,
       email: values.email,
-      membershipFee: values.membershipFee,
+      membership_fee: values.membershipFee || 0,
       id: 0,
       role: AssociationRoleEnum.LEADER,
     };
-
+    console.log("mutate");
     mutate(association);
   }
 
