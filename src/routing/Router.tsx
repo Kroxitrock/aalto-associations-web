@@ -5,6 +5,7 @@ import Associations from "./routes/Associations";
 import AssociationDetails from "./routes/AssociationDetails";
 import EventDetails from "./routes/EventDetails";
 import CreateEvent from "./routes/CreateEvent";
+import Login from "@/components/Login";
 
 export default function Router() {
   return (
@@ -23,6 +24,8 @@ export default function Router() {
         />
         <Route path="/events/:id" element={<EventDetails />} />
         <Route path="/events/create" element={<CreateEvent />} />
+
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

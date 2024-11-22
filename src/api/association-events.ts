@@ -1,11 +1,10 @@
 import { UpcomingEventDto } from "@/model/event";
-import axios from "axios";
+import axiosInstance from "./axiosConfig";
 
 export function getAssociationEvents(
   associationId: number
 ): Promise<UpcomingEventDto[]> {
-  const path = `/associations/${associationId}/events`;
-  return axios
-    .get(import.meta.env.VITE_API_URL + path)
+  return axiosInstance
+    .get(`/associations/${associationId}/events`)
     .then((response) => response.data as UpcomingEventDto[]);
 }
