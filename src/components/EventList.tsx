@@ -13,6 +13,7 @@ import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
 import { EventListType, UpcomingEventDto } from "@/model/event";
 import { useMutation } from "@tanstack/react-query";
 import { joinEvent } from "@/api/event";
+import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   provider: EventListType;
@@ -23,7 +24,7 @@ function EventList({ provider }: Props) {
     provider === EventListType.MY_EVENTS
       ? useMyEvents()
       : useAssociationEvents();
-
+  const { toast } = useToast();
   const navigate = useNavigate();
   const navigateEvent = (eventId: number) => {
     navigate(`/events/${eventId}`);
@@ -35,14 +36,17 @@ function EventList({ provider }: Props) {
       setTimeout(refetch);
     },
     onError: () => {
-      console.log("Error joining event");
-      //TODO: Put toast
+      toast({
+        duration: 2000,
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
     },
   });
 
   return (
     <>
-      {/* TODO: Event should be order by date... maybe in backeng */}
       {data?.map((event: UpcomingEventDto) => (
         <Card
           onClick={() => navigateEvent(event.id)}

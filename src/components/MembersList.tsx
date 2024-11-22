@@ -11,21 +11,23 @@ function MemberList() {
       {isPending && <p>Loading participants...</p>}
       {error && <p>Error fetching participants!</p>}
       {data?.length == 0 && <p>No participants yet.</p>}
-      <div className="overflow-y-auto max-h-96">
-        <ViewTitle>Participants - {data?.length} </ViewTitle>
-        <Category>
-          {data?.map((participant, index) => (
-            <CategoryItem
-              key={participant.id}
-              className={`flex items-center p-4 ${
-                index % 2 === 0 ? "bg-shadowDark" : "bg-shadowDark-light"
-              }`}
-            >
-              {participant.name}
-            </CategoryItem>
-          ))}
-        </Category>
-      </div>
+      {data && data.length > 0 && (
+        <div className="overflow-y-auto max-h-96">
+          <ViewTitle>Participants - {data?.length} </ViewTitle>
+          <Category>
+            {data?.map((participant, index) => (
+              <CategoryItem
+                key={participant.id}
+                className={`flex items-center p-4 ${
+                  index % 2 === 0 ? "bg-shadowDark" : "bg-shadowDark-light"
+                }`}
+              >
+                {participant.name}
+              </CategoryItem>
+            ))}
+          </Category>
+        </div>
+      )}
     </div>
   );
 }
