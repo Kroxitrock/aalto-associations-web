@@ -19,7 +19,11 @@ export default function AssociationList() {
 
       {data?.map((association) => (
         <Card key={association.id}>
-          <CardImage src={association.logo} alt={`${association.name} logo`} />
+          <CardImage
+            src={association.logo}
+            alt={`${association.name} logo`}
+            className="p-4"
+          />
           <div className="flex flex-col p-4 leading-normal flex-1">
             <div className="flex flex-row justify-between leading-normal">
               <CardTitle>{association.name}</CardTitle>

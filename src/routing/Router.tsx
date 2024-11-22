@@ -5,11 +5,13 @@ import Associations from "./routes/Associations";
 import AssociationDetails from "./routes/AssociationDetails";
 import EventDetails from "./routes/EventDetails";
 import CreateEvent from "./routes/CreateEvent";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Header />
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/associations" element={<Associations />} />
