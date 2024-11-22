@@ -1,6 +1,5 @@
 import { useEventParticipants } from "@/contexts/EventParticipantsContext";
-import { CardImage } from "./ui/card";
-import { Category, CategoryItem, CategoryTitle } from "./ui/category";
+import { Category, CategoryItem } from "./ui/category";
 import { ViewTitle } from "./ui/splitView";
 
 function MemberList() {

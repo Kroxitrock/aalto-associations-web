@@ -4,6 +4,7 @@ import { Card, CardContent, CardImage } from "./ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import { useNavigate } from "react-router-dom";
 
+// TODO: IMPORTANT Bug - first it loads all associations, then when you select "View details" and return back to the home page, only my ass are visible
 function AssociationsCarousel() {
   const { data, isPending, error } = useMyAssociations();
   const navigate = useNavigate();
