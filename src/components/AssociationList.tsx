@@ -11,7 +11,7 @@ export default function AssociationList() {
   };
 
   return (
-    <div>
+    <div className="w-full">
       {isPending && <p>Loading associations...</p>}
       {error && <p>Error fetching associations!</p>}
 
@@ -20,7 +20,7 @@ export default function AssociationList() {
       {data?.map((association) => (
         <Card key={association.id}>
           <CardImage src={association.logo} alt={`${association.name} logo`} />
-          <div className="flex flex-col p-4 leading-normal">
+          <div className="flex flex-col p-4 leading-normal flex-1">
             <div className="flex flex-row justify-between leading-normal">
               <CardTitle>{association.name}</CardTitle>
               <Button
@@ -30,7 +30,7 @@ export default function AssociationList() {
                 Learn more
               </Button>
             </div>
-            <CardDescription className="mt-4">
+            <CardDescription className="mt-4 max-h-16 line-clamp-3">
               {association.description}
             </CardDescription>
           </div>
