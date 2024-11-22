@@ -14,11 +14,52 @@ import Price from "@/components/createForm/price";
 import DatePicker from "@/components/createForm/datePicker";
 import { formSchema } from "@/components/createForm/createFormProp";
 import { z } from "zod";
+import Event from "@/model/event";
+import { useMutation } from "@tanstack/react-query";
+import { createEvent } from "@/api/event";
+import { useParams } from "react-router-dom";
 
 export default function CreateEvent() {
+  const { id } = useParams<{ id: string }>();
+
+  if (!id) {
+    throw new Error("No association ID provided in the URL");
+  }
+  const associationId = parseInt(id, 10);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      price: undefined,
+      location: "",
+    },
   });
+  const { mutate } = useMutation({
+    mutationFn: createEvent,
+    onSuccess: () => {
+      console.log("Created");
+      // showSuccessToast();
+    },
+    onError: () => {
+      console.log("craete issue");
+      // showErrorToast();
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    const event: Event = {
+      title: values.title,
+      description: values.description,
+      picture: values.picture ? values.picture.name : undefined,
+      date: values.date,
+      location: values.location,
+      price: values.price || 0,
+      capacity: values.capacity,
+      associationId,
+    };
+    mutate(event);
+  }
 
   return (
     <div className="bg-shadowDark p-8 text-black">
@@ -46,8 +87,4 @@ export default function CreateEvent() {
       </Form>
     </div>
   );
-}
-
-function onSubmit(values: z.infer<typeof formSchema>) {
-  console.log(values);
 }

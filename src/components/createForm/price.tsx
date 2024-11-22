@@ -17,7 +17,14 @@ function Price({ form }: CreateFormProp) {
         <FormItem className="w-1/2">
           <FormLabel>Price *</FormLabel>
           <FormControl>
-            <Input className="" placeholder="Price" {...field} />
+            <Input
+              placeholder="Price"
+              {...field}
+              onChange={(e) => {
+                const value = e.target.value ? parseFloat(e.target.value) : 0;
+                field.onChange(value);
+              }}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
