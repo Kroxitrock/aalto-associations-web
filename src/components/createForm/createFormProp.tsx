@@ -13,7 +13,8 @@ export const formSchema = z.object({
   date: z.date().optional(),
   picture: z
     .instanceof(File)
-    .refine((file) => file.size !== 0, "Please upload an image"),
+    .refine((file) => file.size !== 0, "Please upload an image")
+    .optional(),
 });
 type FormData = z.infer<typeof formSchema>;
 

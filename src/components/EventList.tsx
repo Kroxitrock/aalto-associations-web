@@ -74,9 +74,11 @@ function EventList({ provider }: Props) {
               {event.description}
             </CardDescription>
             <div className="flex justify-between items-center mt-auto">
-              <CardFooter className="flex items-center justify-start mt-auto">
-                {new Date(event.date).toLocaleString()}
-              </CardFooter>
+              {event.date && (
+                <CardFooter className="flex items-center justify-start mt-auto">
+                  {new Date(event.date).toLocaleString()}
+                </CardFooter>
+              )}
               {event.location && (
                 <CardFooter>
                   <MapPin className="h-4 w-4 mr-2" />
@@ -85,7 +87,7 @@ function EventList({ provider }: Props) {
               )}
             </div>
           </div>
-          {event.capacity !== null && (
+          {event.capacity !== null && event.capacity > 0 && (
             <CardDescription className="flex items-center md:justify-center md:border-l border-white w-40 ">
               <div className="flex flex-row pl-4 md:pl-0">
                 <User className="h-4 w-4" />
