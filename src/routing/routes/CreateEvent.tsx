@@ -73,8 +73,6 @@ export default function CreateEvent() {
       capacity: values.capacity,
       associationId,
     };
-
-    //TODO: Date time is not saved in the db, probably backend issue
     mutate(event);
   }
 
