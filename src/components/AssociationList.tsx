@@ -40,6 +40,14 @@ export default function AssociationList() {
           </div>
         </Card>
       ))}
+
+      <Button
+        className="fixed bottom-4 left-1/2 transform -translate-x-1/2"
+        variant={"action"}
+        onClick={() => navigate(`/associations/create`)}
+      >
+        Create own association
+      </Button>
     </div>
   );
 }
