@@ -17,9 +17,11 @@ import { z } from "zod";
 import Event from "@/model/event";
 import { useMutation } from "@tanstack/react-query";
 import { createEvent } from "@/api/event";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 export default function CreateEvent() {
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
   if (!id) {
@@ -38,12 +40,19 @@ export default function CreateEvent() {
   const { mutate } = useMutation({
     mutationFn: createEvent,
     onSuccess: () => {
-      console.log("Created");
-      // showSuccessToast();
+      navigate(`/associations/${associationId}`);
+      toast({
+        duration: 2000,
+        description: "Event created successfuly!",
+      });
     },
     onError: () => {
-      console.log("craete issue");
-      // showErrorToast();
+      toast({
+        duration: 2000,
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
     },
   });
 
@@ -58,6 +67,7 @@ export default function CreateEvent() {
       capacity: values.capacity,
       associationId,
     };
+
     mutate(event);
   }
 
