@@ -15,3 +15,7 @@ export function joinAssociation(associationId: number) {
     `${import.meta.env.VITE_API_URL}${path}/${associationId}/join`
   );
 }
+
+export function createAssociation(association: Association) {
+  return axios.post(import.meta.env.VITE_API_URL + path, association);
+}

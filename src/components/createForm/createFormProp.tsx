@@ -15,6 +15,10 @@ export const formSchema = z.object({
     .instanceof(File)
     .refine((file) => file.size !== 0, "Please upload an image")
     .optional(),
+  telegram: z.string().optional(),
+  phone: z.string().optional(),
+  email: z.string().optional(),
+  membershipFee: z.number().optional(),
 });
 type FormData = z.infer<typeof formSchema>;
 

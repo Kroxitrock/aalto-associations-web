@@ -6,6 +6,7 @@ import AssociationDetails from "./routes/AssociationDetails";
 import EventDetails from "./routes/EventDetails";
 import CreateEvent from "./routes/CreateEvent";
 import { Toaster } from "@/components/ui/toaster";
+import CreateAssociation from "./routes/CreateAssociation";
 
 export default function Router() {
   return (
@@ -28,6 +29,7 @@ export default function Router() {
           path="/associations/:id/events/create"
           element={<CreateEvent />} //TODO: User who is not leader should not be allow to access this page
         />
+        <Route path="/associations/create" element={<CreateAssociation />} />
       </Routes>
     </BrowserRouter>
   );
