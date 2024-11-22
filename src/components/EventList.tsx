@@ -87,15 +87,25 @@ function EventList({ provider }: Props) {
               )}
             </div>
           </div>
-          {event.capacity !== null && event.capacity > 0 && (
-            <CardDescription className="flex items-center md:justify-center md:border-l border-white w-40 ">
-              <div className="flex flex-row pl-4 md:pl-0">
-                <User className="h-4 w-4" />
-                {/* TODO: Load signed participants */}
-                0/{event.capacity}
-              </div>
-            </CardDescription>
-          )}
+
+          <CardDescription className="flex items-center md:justify-center md:border-l border-white w-40 ">
+            {!event.capacity && (
+              <div className="flex flex-row pl-4 md:pl-0">No limit</div>
+            )}
+
+            {event.capacity > 0 && event.participants === event.capacity && (
+              <div className="flex flex-row pl-4 md:pl-0">Full</div>
+            )}
+
+            {event.capacity !== null &&
+              event.capacity > 0 &&
+              event.participants != event.capacity && (
+                <div className="flex flex-row pl-4 md:pl-0">
+                  <User className="h-4 w-4 mr-2" />
+                  {event.participants}/{event.capacity}
+                </div>
+              )}
+          </CardDescription>
         </Card>
       ))}
     </>

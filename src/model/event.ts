@@ -21,6 +21,7 @@ export interface UpcomingEventDto {
   capacity: number;
   associationName: string;
   joined: boolean;
+  participants: number;
 }
 
 export enum EventListType {
