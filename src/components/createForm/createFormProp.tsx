@@ -8,10 +8,12 @@ export const formSchemaEvent = z.object({
   description: z.string().optional(),
   location: z.string().optional(),
   price: z.number().min(0, {
-    message: "Price is required. 0 means free. ",
+    message: "Price is required. 0 means free.",
   }),
   capacity: z.number().optional(),
-  date: z.date().optional(),
+  date: z.date().min(new Date(), {
+    message: "Date should be in the future.",
+  }),
   picture: z
     .instanceof(File)
     .refine((file) => file.size !== 0, "Please upload an image")
