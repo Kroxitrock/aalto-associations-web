@@ -22,7 +22,10 @@ export default function Router() {
           element={<AssociationDetails />}
         />
         <Route path="/events/:id" element={<EventDetails />} />
-        <Route path="/events/create" element={<CreateEvent />} />
+        <Route
+          path="/associations/:id/events/create"
+          element={<CreateEvent />} //TODO: User who is not leader should not be allow to access this page
+        />
       </Routes>
     </BrowserRouter>
   );

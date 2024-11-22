@@ -10,15 +10,74 @@ import Capacity from "@/components/createForm/capacity";
 import Description from "@/components/createForm/description";
 import Title from "@/components/createForm/title";
 import Location from "@/components/createForm/location";
-import Price from "@/components/createForm/price";
+import Price, { fileToBase64 } from "@/components/createForm/price";
 import DatePicker from "@/components/createForm/datePicker";
 import { formSchema } from "@/components/createForm/createFormProp";
 import { z } from "zod";
-
+import Event from "@/model/event";
+import { useMutation } from "@tanstack/react-query";
+import { createEvent } from "@/api/event";
+import { useNavigate, useParams } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 export default function CreateEvent() {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
+  if (!id) {
+    throw new Error("No association ID provided in the URL");
+  }
+  const associationId = parseInt(id, 10);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      price: undefined,
+      location: "",
+    },
   });
+  const { mutate } = useMutation({
+    mutationFn: createEvent,
+    onSuccess: () => {
+      navigate(`/associations/${associationId}/events`);
+      toast({
+        duration: 2000,
+        description: "Event created successfuly!",
+      });
+    },
+    onError: () => {
+      toast({
+        duration: 2000,
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    let base64Picture = undefined;
+
+    if (values.picture instanceof File) {
+      base64Picture = await fileToBase64(values.picture);
+    }
+
+    const event: Event = {
+      title: values.title,
+      description: values.description,
+      picture: base64Picture,
+      date: values.date,
+      location: values.location,
+      price: values.price || 0,
+      capacity: values.capacity,
+      associationId,
+    };
+
+    //TODO: Date time is not saved in the db, probably backend issue
+    //TODO: How should we handle images
+    mutate(event);
+  }
 
   return (
     <div className="bg-shadowDark p-8 text-black">
@@ -46,8 +105,4 @@ export default function CreateEvent() {
       </Form>
     </div>
   );
-}
-
-function onSubmit(values: z.infer<typeof formSchema>) {
-  console.log(values);
 }

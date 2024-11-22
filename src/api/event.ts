@@ -21,3 +21,11 @@ export function getEventParticipants(id: number): Promise<User[]> {
     .get(`${import.meta.env.VITE_API_URL}${path}/${id}/participants`)
     .then((response) => response.data as User[]);
 }
+
+export function createEvent(event: Event) {
+  return axios.post(import.meta.env.VITE_API_URL + path, event);
+}
+
+export function joinEvent(eventId: number) {
+  return axios.post(`${import.meta.env.VITE_API_URL}${path}/${eventId}/join`);
+}
