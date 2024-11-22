@@ -8,16 +8,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { CreateFormProp } from "./createFormProp";
 
-function Title({ form }: CreateFormProp) {
+function Phone({ form }: CreateFormProp) {
   return (
     <FormField
       control={form.control}
-      name="title"
+      name="phone"
       render={({ field }) => (
         <FormItem className="w-1/2">
-          <FormLabel>Title *</FormLabel>
+          <FormLabel>Phone</FormLabel>
           <FormControl>
-            <Input placeholder="Enter title" {...field} />
+            <Input placeholder="Phone" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -26,4 +26,4 @@ function Title({ form }: CreateFormProp) {
   );
 }
 
-export default Title;
+export default Phone;
