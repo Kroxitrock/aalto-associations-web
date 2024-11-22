@@ -4,6 +4,7 @@ import Home from "./routes/Home";
 import Associations from "./routes/Associations";
 import AssociationDetails from "./routes/AssociationDetails";
 import EventDetails from "./routes/EventDetails";
+import CreateEvent from "./routes/CreateEvent";
 
 export default function Router() {
   return (
@@ -21,6 +22,7 @@ export default function Router() {
           element={<AssociationDetails />}
         />
         <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/events/create" element={<CreateEvent />} />
       </Routes>
     </BrowserRouter>
   );

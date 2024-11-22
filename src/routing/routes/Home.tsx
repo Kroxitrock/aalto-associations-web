@@ -8,7 +8,7 @@ import { EventListType } from "@/model/event";
 
 function Home() {
   return (
-    <div className="lg:max-w-4xl mx-auto p-6">
+    <div>
       <CardTitle className="border-b border-white mb-4">
         My associations
       </CardTitle>

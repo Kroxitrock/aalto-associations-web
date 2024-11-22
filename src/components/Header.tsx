@@ -6,17 +6,15 @@ import HeaderAssociationSearch from "./HeaderAssociationSearch";
 function Header() {
   return (
     // TODO: Add on click on the logo to go to home
-    <header className="flex justify-between items-center px-6 py-4 bg-black shadow-md">
-      <div className="flex items-center gap-2">
-        <div className="text-white text-2xl font-bold">A! Associations</div>
-      </div>
+    <header className="flex justify-between items-center pb-4">
+      <div className="text-2xl font-bold">A! Associations</div>
 
       <div className="flex items-center gap-4">
         <AssociationsProvider>
           <HeaderAssociationSearch></HeaderAssociationSearch>
         </AssociationsProvider>
         {/* TODO: Add an if to change button to log-in / log out if user is logged in*/}
-        <Button className="flex items-center gap-2 text-white text-sm whitespace-nowrap px-3 py-1 bg-transparent hover:bg-gray-800">
+        <Button className="flex items-center gap-2 text-sm whitespace-nowrap">
           <LogIn className="h-4 w-4" />
           Log In
         </Button>
