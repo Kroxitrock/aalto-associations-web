@@ -14,16 +14,19 @@ import { EventListType, UpcomingEventDto } from "@/model/event";
 import { useMutation } from "@tanstack/react-query";
 import { joinEvent } from "@/api/event";
 import { useToast } from "@/hooks/use-toast";
+import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
+import { AssociationRoleEnum } from "@/model/association";
 
 type Props = {
   provider: EventListType;
 };
 
 function EventList({ provider }: Props) {
-  const { data, refetch } =
+  const { data: events, refetch } =
     provider === EventListType.MY_EVENTS
       ? useMyEvents()
       : useAssociationEvents();
+  const { data: association } = useAssociationDetails();
   const { toast } = useToast();
   const navigate = useNavigate();
   const navigateEvent = (eventId: number) => {
@@ -47,7 +50,7 @@ function EventList({ provider }: Props) {
 
   return (
     <>
-      {data?.map((event: UpcomingEventDto) => (
+      {events?.map((event: UpcomingEventDto) => (
         <Card
           onClick={() => navigateEvent(event.id)}
           key={event.id}
@@ -57,17 +60,18 @@ function EventList({ provider }: Props) {
           <div className="flex flex-col p-4 leading-normal w-full">
             <div className="flex flex-row gap-2 justify-between leading-normal">
               <CardTitle>{event.title}</CardTitle>
-              {!event.joined && (
-                <Button
-                  variant="action"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    mutate(event.id);
-                  }}
-                >
-                  Join
-                </Button>
-              )}
+              {!event.joined &&
+                association?.role === AssociationRoleEnum.MEMBER && (
+                  <Button
+                    variant="action"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      mutate(event.id);
+                    }}
+                  >
+                    Join
+                  </Button>
+                )}
               {event.joined && (
                 <Button variant="icon">
                   <Check className="h-4 w-4" /> Joined

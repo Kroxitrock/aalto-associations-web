@@ -30,31 +30,31 @@ function AssociationDetails() {
     <div className="flex flex-col items-center justify-between">
       <AssociationDetailsProvider associationId={associationId}>
         <AssociationHeader />
+        <Tabs defaultValue={currentTab} className="w-full md:max-w-4xl">
+          <TabsList>
+            <TabsTrigger
+              value="events"
+              onClick={() => handleTabChange(AssociationTabsEnum.EVENTS)}
+            >
+              Events
+            </TabsTrigger>
+            <TabsTrigger
+              value="about"
+              onClick={() => handleTabChange(AssociationTabsEnum.ABOUT)}
+            >
+              About
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="events">
+            <AssociationEventsProvider associationId={associationId}>
+              <EventList provider={EventListType.ASSOCIATION_EVENTS} />
+            </AssociationEventsProvider>
+          </TabsContent>
+          <TabsContent value="about">
+            <AssociationAbout />
+          </TabsContent>
+        </Tabs>
       </AssociationDetailsProvider>
-      <Tabs defaultValue={currentTab} className="w-full md:max-w-4xl">
-        <TabsList>
-          <TabsTrigger
-            value="events"
-            onClick={() => handleTabChange(AssociationTabsEnum.EVENTS)}
-          >
-            Events
-          </TabsTrigger>
-          <TabsTrigger
-            value="about"
-            onClick={() => handleTabChange(AssociationTabsEnum.ABOUT)}
-          >
-            About
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="events">
-          <AssociationEventsProvider associationId={associationId}>
-            <EventList provider={EventListType.ASSOCIATION_EVENTS} />
-          </AssociationEventsProvider>
-        </TabsContent>
-        <TabsContent value="about">
-          <AssociationAbout />
-        </TabsContent>
-      </Tabs>
     </div>
   );
 }
