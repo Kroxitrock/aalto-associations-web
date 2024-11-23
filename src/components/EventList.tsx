@@ -22,7 +22,7 @@ type Props = {
 };
 
 function EventList({ provider }: Props) {
-  const { data: events, refetch } =
+  const { data: events } =
     provider === EventListType.MY_EVENTS
       ? useMyEvents()
       : useAssociationEvents();
