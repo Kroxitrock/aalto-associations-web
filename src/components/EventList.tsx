@@ -78,7 +78,13 @@ function EventList({ provider }: Props) {
                   </Button>
                 )}
               {associationRole === AssociationRoleEnum.LEADER && (
-                <Button variant="icon">
+                <Button
+                  variant="icon"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/events/${event.id}/edit`);
+                  }}
+                >
                   <Pencil className="h-4 w-4" /> Edit
                 </Button>
               )}
