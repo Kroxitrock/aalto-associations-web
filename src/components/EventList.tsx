@@ -21,6 +21,8 @@ type Props = {
   provider: EventListType;
 };
 
+//TODO: Do not refetch when I join event from association about page
+
 function EventList({ provider }: Props) {
   const { data: events, refetch } =
     provider === EventListType.MY_EVENTS

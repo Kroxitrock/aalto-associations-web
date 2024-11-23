@@ -19,6 +19,7 @@ import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
 import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
 import { AssociationRoleEnum } from "@/model/association";
 
+//TODO: Join btn visible when user joined
 function EventDetails() {
   const { id } = useParams();
   if (!id) {

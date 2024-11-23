@@ -1,4 +1,4 @@
-import { Category, CategoryTitle } from "./ui/category";
+import { Category } from "./ui/category";
 import CircleChip from "@/components/ui/contactchip";
 import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
 import { Mail, Phone, Send } from "lucide-react";
