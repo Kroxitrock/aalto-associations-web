@@ -20,6 +20,8 @@ import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
 import { AssociationRoleEnum } from "@/model/association";
 
 //TODO: Join btn visible when user joined
+//TODO: Map pin visible when location not put
+//TODO: Edit btn not working
 function EventDetails() {
   const { id } = useParams();
   if (!id) {
