@@ -1,3 +1,5 @@
+import { Association } from "./association";
+
 export default interface Event {
   id?: number;
   title: string;
@@ -7,7 +9,7 @@ export default interface Event {
   location?: string;
   price: number;
   capacity?: number;
-  associationId: number;
+  association: Association;
 }
 
 export interface UpcomingEventDto {

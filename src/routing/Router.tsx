@@ -33,6 +33,7 @@ export default function Router() {
           element={<CreateEvent />} //TODO: User who is not leader should not be allow to access this page
         />
         <Route path="/associations/:id/edit" element={<CreateAssociation />} />
+        <Route path="/events/:eventId/edit" element={<CreateEvent />} />
 
         <Route path="/login" element={<Login />} />
       </Routes>

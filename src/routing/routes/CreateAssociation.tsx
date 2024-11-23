@@ -15,10 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import Telegram from "@/components/createForm/telegram";
 import Phone from "@/components/createForm/phone";
 import Email from "@/components/createForm/email";
-import MembershipFee, {
-  base64ToFile,
-  fileToBase64,
-} from "@/components/createForm/membershipFee";
+import MembershipFee from "@/components/createForm/membershipFee";
 import { Association, AssociationRoleEnum } from "@/model/association";
 import { createAssociation, updateAssociation } from "@/api/associations";
 import {
@@ -33,6 +30,7 @@ import {
 import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
 import { useGetAssociationDetails } from "@/hooks/useGetAssociationDetails";
 import { useEffect } from "react";
+import { base64ToFile, fileToBase64 } from "@/components/createForm/price";
 
 export default function CreateAssociation() {
   const { id } = useParams();
@@ -82,7 +80,6 @@ function CreateAssociationContent({
   if (associationId) {
     const { reset } = form;
 
-    // TODO: should not use useEffects
     // TODO: warinings in the console
     const { data: association } = useGetAssociationDetails(associationId);
     useEffect(() => {
@@ -186,7 +183,7 @@ function CreateAssociationContent({
               <DialogHeader>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogDescription>
-                  Are you sure you do not want to{" "}
+                  Are you sure you do not want to
                   {associationId ? "edit" : "create"} this association?
                 </DialogDescription>
               </DialogHeader>

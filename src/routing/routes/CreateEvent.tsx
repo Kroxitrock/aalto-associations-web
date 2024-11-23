@@ -10,12 +10,15 @@ import Capacity from "@/components/createForm/capacity";
 import Description from "@/components/createForm/description";
 import Title from "@/components/createForm/title";
 import Location from "@/components/createForm/location";
-import Price, { fileToBase64 } from "@/components/createForm/price";
+import Price, {
+  base64ToFile,
+  fileToBase64,
+} from "@/components/createForm/price";
 import DatePicker from "@/components/createForm/datePicker";
 import { z } from "zod";
 import Event from "@/model/event";
 import { useMutation } from "@tanstack/react-query";
-import { createEvent } from "@/api/event";
+import { createEvent, updateEvent } from "@/api/event";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -27,16 +30,31 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import EventProvider from "@/provider/EventProvider";
+import { useEffect, useState } from "react";
+import { useEvent } from "@/contexts/EventContext";
+import { Association } from "@/model/association";
 
 export default function CreateEvent() {
+  const { eventId } = useParams();
+  if (!eventId) {
+    return <CreateEventContent />;
+  }
+  const id = parseInt(eventId, 10);
+  return (
+    <EventProvider eventId={id}>
+      <CreateEventContent eventId={id} />
+    </EventProvider>
+  );
+}
+
+interface CreateEventContentProps {
+  eventId?: number;
+}
+function CreateEventContent({ eventId }: CreateEventContentProps) {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-
-  if (!id) {
-    throw new Error("No association ID provided in the URL");
-  }
-  const associationId = parseInt(id, 10);
+  const [associationId, setAssociationId] = useState<number>(-1);
 
   const formSchemaEvent = z.object({
     title: z.string().min(1, {
@@ -61,12 +79,42 @@ export default function CreateEvent() {
     resolver: zodResolver(formSchemaEvent),
     defaultValues: {
       title: "",
-      price: undefined,
+      price: 0,
       location: "",
     },
   });
+
+  if (eventId) {
+    const { reset } = form;
+    // TODO: warinings in the console
+    const { data: event } = useEvent();
+    useEffect(() => {
+      if (eventId && event) {
+        setAssociationId(event.association.id);
+        reset({
+          title: event.title,
+          description: event.description || undefined,
+          date: event.date ? new Date(event.date) : new Date(),
+          location: event.location || undefined,
+          price: event.price || undefined,
+          capacity: event.capacity || undefined,
+          picture: base64ToFile(event.picture, event.title),
+        });
+      }
+    }, [event, reset]);
+  } else {
+    const { id } = useParams<{ id: string }>();
+
+    if (!id) {
+      throw new Error("No association ID provided in the URL");
+    }
+    setAssociationId(parseInt(id, 10));
+  }
+
   const { mutate } = useMutation({
-    mutationFn: createEvent,
+    mutationFn: (event: Event) => {
+      return eventId ? updateEvent(event, eventId) : createEvent(event);
+    },
     onSuccess: () => {
       closeForm();
       toast({
@@ -85,6 +133,7 @@ export default function CreateEvent() {
   });
 
   function closeForm() {
+    console.log(associationId);
     navigate(`/associations/${associationId}/events`);
   }
 
@@ -103,7 +152,7 @@ export default function CreateEvent() {
       location: values.location,
       price: values.price || 0,
       capacity: values.capacity,
-      associationId,
+      association: { id: associationId } as Association,
     };
     mutate(event);
   }
@@ -111,7 +160,7 @@ export default function CreateEvent() {
   return (
     <div className="bg-shadowDark p-8 text-black">
       <CardTitle className="border-b border-white text-4xl mb-8 text-white">
-        Create new event
+        {eventId ? "Edit" : "Create"} new event
       </CardTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -127,9 +176,16 @@ export default function CreateEvent() {
             <Capacity form={form} />
           </div>
           <Picture form={form} />
-          <Button type="submit" variant="action" className="mr-4">
-            Create
-          </Button>
+          {!eventId && (
+            <Button type="submit" variant="action" className="mr-4">
+              Create
+            </Button>
+          )}
+          {eventId && (
+            <Button type="submit" variant="action" className="mr-4">
+              Save
+            </Button>
+          )}
           <Dialog>
             <DialogTrigger>
               <Button type="button" variant="info">
@@ -140,7 +196,8 @@ export default function CreateEvent() {
               <DialogHeader>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogDescription>
-                  Are you sure you do not want to creata this event?
+                  Are you sure you do not want to
+                  {eventId ? "edit" : "create"} this event?
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
