@@ -24,6 +24,10 @@ export function createEvent(event: Event) {
   return axiosInstance.post(import.meta.env.VITE_API_URL + path, event);
 }
 
+export function updateEvent(event: Event, eventId: number) {
+  return axiosInstance.put(`${path}/${eventId}`, event);
+}
+
 export function joinEvent(eventId: number) {
   return axiosInstance.post(
     `${import.meta.env.VITE_API_URL}${path}/${eventId}/join`

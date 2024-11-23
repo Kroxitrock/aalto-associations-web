@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { Check, MapPin, User } from "lucide-react";
+import { Check, MapPin, Pencil, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMyEvents } from "@/contexts/MyEventsContext";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
@@ -27,10 +27,10 @@ function EventList({ provider }: Props) {
       ? useMyEvents()
       : useAssociationEvents();
 
-  let associationRole = AssociationRoleEnum.MEMBER;
+  let associationRole: AssociationRoleEnum | null = AssociationRoleEnum.MEMBER;
   if (provider === EventListType.ASSOCIATION_EVENTS) {
     const { data: association } = useAssociationDetails();
-    associationRole = association?.role;
+    associationRole = association ? association.role : null;
   }
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -41,7 +41,8 @@ function EventList({ provider }: Props) {
   const { mutate } = useMutation({
     mutationFn: joinEvent,
     onSuccess: () => {
-      setTimeout(refetch);
+      // setTimeout(refetch);
+      window.location.reload(); //TODO: fast fix, now good to stay like that
     },
     onError: () => {
       toast({
@@ -66,7 +67,8 @@ function EventList({ provider }: Props) {
             <div className="flex flex-row gap-2 justify-between leading-normal">
               <CardTitle>{event.title}</CardTitle>
               {!event.joined &&
-                associationRole === AssociationRoleEnum.MEMBER && (
+                associationRole === AssociationRoleEnum.MEMBER &&
+                (!event.capacity || event.participants < event.capacity) && (
                   <Button
                     variant="action"
                     onClick={(e) => {
@@ -77,11 +79,23 @@ function EventList({ provider }: Props) {
                     Join
                   </Button>
                 )}
-              {event.joined && (
-                <Button variant="icon">
-                  <Check className="h-4 w-4" /> Joined
+              {associationRole === AssociationRoleEnum.LEADER && (
+                <Button
+                  variant="icon"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/events/${event.id}/edit`);
+                  }}
+                >
+                  <Pencil className="h-4 w-4" /> Edit
                 </Button>
               )}
+              {event.joined &&
+                associationRole != AssociationRoleEnum.LEADER && (
+                  <Button variant="status">
+                    <Check className="h-4 w-4" /> Joined
+                  </Button>
+                )}
             </div>
             <CardDescription className="mt-4 max-h-16 line-clamp-3">
               {event.description}
