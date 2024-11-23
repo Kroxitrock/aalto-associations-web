@@ -54,7 +54,7 @@ function AssociationHeader() {
           )}
 
           {data.role === AssociationRoleEnum.MEMBER && (
-            <Button className="absolute bottom-4 right-4 px-4" variant="icon">
+            <Button className="absolute bottom-4 right-4 px-4" variant="status">
               <Check className="h-4 w-4" /> Joined
             </Button>
           )}

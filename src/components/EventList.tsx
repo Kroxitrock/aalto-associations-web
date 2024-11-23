@@ -92,7 +92,7 @@ function EventList({ provider }: Props) {
               )}
               {event.joined &&
                 associationRole != AssociationRoleEnum.LEADER && (
-                  <Button variant="icon">
+                  <Button variant="status">
                     <Check className="h-4 w-4" /> Joined
                   </Button>
                 )}
