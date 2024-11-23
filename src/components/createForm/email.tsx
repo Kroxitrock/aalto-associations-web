@@ -8,24 +8,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { CreateFormProp } from "./createFormProp";
 
-function Capacity({ form }: CreateFormProp) {
+function Email({ form }: CreateFormProp) {
   return (
     <FormField
       control={form.control}
-      name="capacity"
+      name="email"
       render={({ field }) => (
         <FormItem className="w-1/2">
-          <FormLabel>Capacity</FormLabel>
+          <FormLabel>Email</FormLabel>
           <FormControl>
-            <Input
-              className=""
-              placeholder="Paricipents capacity"
-              {...field}
-              onChange={(e) => {
-                const value = e.target.value ? parseFloat(e.target.value) : 0;
-                field.onChange(value);
-              }}
-            />
+            <Input placeholder="Email" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -33,4 +25,5 @@ function Capacity({ form }: CreateFormProp) {
     />
   );
 }
-export default Capacity;
+
+export default Email;

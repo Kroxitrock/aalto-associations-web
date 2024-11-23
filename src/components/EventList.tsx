@@ -11,26 +11,51 @@ import { useNavigate } from "react-router-dom";
 import { useMyEvents } from "@/contexts/MyEventsContext";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
 import { EventListType, UpcomingEventDto } from "@/model/event";
+import { useMutation } from "@tanstack/react-query";
+import { joinEvent } from "@/api/event";
+import { useToast } from "@/hooks/use-toast";
+import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
+import { AssociationRoleEnum } from "@/model/association";
 
 type Props = {
   provider: EventListType;
 };
 
 function EventList({ provider }: Props) {
-  const { data } =
+  const { data: events, refetch } =
     provider === EventListType.MY_EVENTS
       ? useMyEvents()
       : useAssociationEvents();
 
+  let associationRole = AssociationRoleEnum.MEMBER;
+  if (provider === EventListType.ASSOCIATION_EVENTS) {
+    const { data: association } = useAssociationDetails();
+    associationRole = association?.role;
+  }
+  const { toast } = useToast();
   const navigate = useNavigate();
   const navigateEvent = (eventId: number) => {
     navigate(`/events/${eventId}`);
   };
 
+  const { mutate } = useMutation({
+    mutationFn: joinEvent,
+    onSuccess: () => {
+      setTimeout(refetch);
+    },
+    onError: () => {
+      toast({
+        duration: 2000,
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    },
+  });
+
   return (
     <>
-      {/* TODO: Event should be order by date... maybe in backeng */}
-      {data?.map((event: UpcomingEventDto) => (
+      {events?.map((event: UpcomingEventDto) => (
         <Card
           onClick={() => navigateEvent(event.id)}
           key={event.id}
@@ -40,7 +65,18 @@ function EventList({ provider }: Props) {
           <div className="flex flex-col p-4 leading-normal w-full">
             <div className="flex flex-row gap-2 justify-between leading-normal">
               <CardTitle>{event.title}</CardTitle>
-              {!event.joined && <Button variant="action">Join</Button>}
+              {!event.joined &&
+                associationRole === AssociationRoleEnum.MEMBER && (
+                  <Button
+                    variant="action"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      mutate(event.id);
+                    }}
+                  >
+                    Join
+                  </Button>
+                )}
               {event.joined && (
                 <Button variant="icon">
                   <Check className="h-4 w-4" /> Joined
@@ -51,9 +87,11 @@ function EventList({ provider }: Props) {
               {event.description}
             </CardDescription>
             <div className="flex justify-between items-center mt-auto">
-              <CardFooter className="flex items-center justify-start mt-auto">
-                {new Date(event.date).toLocaleString()}
-              </CardFooter>
+              {event.date && (
+                <CardFooter className="flex items-center justify-start mt-auto">
+                  {new Date(event.date).toLocaleString()}
+                </CardFooter>
+              )}
               {event.location && (
                 <CardFooter>
                   <MapPin className="h-4 w-4 mr-2" />
@@ -62,15 +100,25 @@ function EventList({ provider }: Props) {
               )}
             </div>
           </div>
-          {event.capacity !== null && (
-            <CardDescription className="flex items-center md:justify-center md:border-l border-white w-40 ">
-              <div className="flex flex-row pl-4 md:pl-0">
-                <User className="h-4 w-4" />
-                {/* TODO: Load signed participants */}
-                0/{event.capacity}
-              </div>
-            </CardDescription>
-          )}
+
+          <CardDescription className="flex items-center md:justify-center md:border-l border-white w-40 ">
+            {!event.capacity && (
+              <div className="flex flex-row pl-4 md:pl-0">No limit</div>
+            )}
+
+            {event.capacity > 0 && event.participants === event.capacity && (
+              <div className="flex flex-row pl-4 md:pl-0">Full</div>
+            )}
+
+            {event.capacity !== null &&
+              event.capacity > 0 &&
+              event.participants != event.capacity && (
+                <div className="flex flex-row pl-4 md:pl-0">
+                  <User className="h-4 w-4 mr-2" />
+                  {event.participants}/{event.capacity}
+                </div>
+              )}
+          </CardDescription>
         </Card>
       ))}
     </>

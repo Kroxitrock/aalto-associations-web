@@ -1,25 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
-import AssociationsProvider from "@/provider/AssociationsProvider";
 import HeaderAssociationSearch from "./HeaderAssociationSearch";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
   return (
-    // TODO: Add on click on the logo to go to home
-    <header className="flex justify-between items-center px-6 py-4 bg-black shadow-md">
-      <div className="flex items-center gap-2">
-      <Link to="/" className="text-white text-2xl font-bold">
+    <header className="flex justify-between items-center pb-4">
+      <div
+        className="text-2xl font-bold cursor-pointer"
+        onClick={() => navigate(`/`)}
+      >
         A! Associations
-      </Link>
       </div>
 
       <div className="flex items-center gap-4">
-        <AssociationsProvider>
-          <HeaderAssociationSearch></HeaderAssociationSearch>
-        </AssociationsProvider>
-        {/* TO-DO: Add an if to change button to log-in / log out if user is logged in*/}
-        <Button className="flex items-center gap-2 text-white text-sm whitespace-nowrap px-3 py-1 bg-transparent hover:bg-gray-800">
+        <HeaderAssociationSearch />
+        {/* TODO: Add an if to change button to log-in / log out if user is logged in*/}
+        <Button
+          className="flex items-center gap-2 text-sm whitespace-nowrap"
+          onClick={() => navigate("/login")}
+        >
           <LogIn className="h-4 w-4" />
           Log In
         </Button>

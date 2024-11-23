@@ -8,18 +8,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { CreateFormProp } from "./createFormProp";
 
-function Capacity({ form }: CreateFormProp) {
+function MembershipFee({ form }: CreateFormProp) {
   return (
     <FormField
       control={form.control}
-      name="capacity"
+      name="membershipFee"
       render={({ field }) => (
         <FormItem className="w-1/2">
-          <FormLabel>Capacity</FormLabel>
+          <FormLabel>Membership Fee</FormLabel>
           <FormControl>
             <Input
-              className=""
-              placeholder="Paricipents capacity"
+              placeholder="Membership Fee"
               {...field}
               onChange={(e) => {
                 const value = e.target.value ? parseFloat(e.target.value) : 0;
@@ -33,4 +32,14 @@ function Capacity({ form }: CreateFormProp) {
     />
   );
 }
-export default Capacity;
+
+export function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
+export default MembershipFee;

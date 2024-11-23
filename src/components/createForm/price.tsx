@@ -17,13 +17,29 @@ function Price({ form }: CreateFormProp) {
         <FormItem className="w-1/2">
           <FormLabel>Price *</FormLabel>
           <FormControl>
-            <Input className="" placeholder="Price" {...field} />
+            <Input
+              placeholder="Price"
+              {...field}
+              onChange={(e) => {
+                const value = e.target.value ? parseFloat(e.target.value) : 0;
+                field.onChange(value);
+              }}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
       )}
     />
   );
+}
+
+export function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
 }
 
 export default Price;

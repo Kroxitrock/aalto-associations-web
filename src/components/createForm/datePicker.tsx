@@ -27,7 +27,7 @@ function DatePicker({ form }: CreateFormProp) {
       name="date"
       render={({ field }) => (
         <FormItem className="w-1/2 flex flex-col mt-3">
-          <FormLabel>Pick a date</FormLabel>
+          <FormLabel>Pick a date *</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>

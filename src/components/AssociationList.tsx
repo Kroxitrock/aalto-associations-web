@@ -19,7 +19,11 @@ export default function AssociationList() {
 
       {data?.map((association) => (
         <Card key={association.id}>
-          <CardImage src={association.logo} alt={`${association.name} logo`} />
+          <CardImage
+            src={association.logo}
+            alt={`${association.name} logo`}
+            className="p-4"
+          />
           <div className="flex flex-col p-4 leading-normal flex-1">
             <div className="flex flex-row justify-between leading-normal">
               <CardTitle>{association.name}</CardTitle>
@@ -36,6 +40,14 @@ export default function AssociationList() {
           </div>
         </Card>
       ))}
+
+      <Button
+        className="fixed bottom-4 left-1/2 transform -translate-x-1/2"
+        variant={"action"}
+        onClick={() => navigate(`/associations/create`)}
+      >
+        Create own association
+      </Button>
     </div>
   );
 }

@@ -72,9 +72,10 @@ function EventDetailsContent() {
               </EventParticipantsProvider>
             </RightView>
           </SplitView>
-
-          {/* TODO: Fix the place of the button to be on the bottom  */}
-          <Button variant="action" className="mb-4">
+          <Button
+            variant="action"
+            className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
+          >
             Join
           </Button>
         </div>

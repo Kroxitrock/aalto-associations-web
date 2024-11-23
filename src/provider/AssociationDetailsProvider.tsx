@@ -10,10 +10,13 @@ export default function AssociationDetailsProvider({
   associationId,
   children,
 }: AssociationProviderProps) {
-  const { data, isPending, error } = useGetAssociationDetails(associationId);
+  const { data, isPending, error, refetch } =
+    useGetAssociationDetails(associationId);
 
   return (
-    <AssociationDetailsContext.Provider value={{ data, isPending, error }}>
+    <AssociationDetailsContext.Provider
+      value={{ data, isPending, error, refetch }}
+    >
       {children}
     </AssociationDetailsContext.Provider>
   );
