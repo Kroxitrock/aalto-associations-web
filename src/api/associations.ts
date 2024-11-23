@@ -17,3 +17,10 @@ export function joinAssociation(associationId: number) {
 export function createAssociation(association: Association) {
   return axiosInstance.post(path, association);
 }
+
+export function updateAssociation(
+  association: Association,
+  associationId: number
+) {
+  return axiosInstance.put(`${path}/${associationId}`, association);
+}

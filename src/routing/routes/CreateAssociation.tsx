@@ -21,7 +21,7 @@ import MembershipFee, {
   fileToBase64,
 } from "@/components/createForm/membershipFee";
 import { Association, AssociationRoleEnum } from "@/model/association";
-import { createAssociation } from "@/api/associations";
+import { createAssociation, updateAssociation } from "@/api/associations";
 import {
   Dialog,
   DialogContent,
@@ -70,7 +70,7 @@ function CreateAssociationContent({
 
     // TODO: should not use useEffects
     // TODO: warinings in the console
-    const { data: association } = useGetAssociationDetails(1);
+    const { data: association } = useGetAssociationDetails(associationId);
     useEffect(() => {
       if (association) {
         reset({
@@ -87,12 +87,16 @@ function CreateAssociationContent({
   }
 
   const { mutate } = useMutation({
-    mutationFn: createAssociation,
+    mutationFn: (association: Association) => {
+      return associationId
+        ? updateAssociation(association, associationId)
+        : createAssociation(association);
+    },
     onSuccess: () => {
       closeForm();
       toast({
         duration: 2000,
-        description: "Association created successfuly!",
+        description: "Successfull request!",
       });
     },
     onError: () => {
@@ -155,7 +159,7 @@ function CreateAssociationContent({
           )}
           {associationId && (
             <Button type="submit" variant="action" className="mr-4">
-              Edit
+              Save
             </Button>
           )}
           <Dialog>
