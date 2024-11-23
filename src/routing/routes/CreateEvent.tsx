@@ -104,11 +104,10 @@ function CreateEventContent({ eventId }: CreateEventContentProps) {
     }, [event, reset]);
   } else {
     const { id } = useParams<{ id: string }>();
-
     if (!id) {
       throw new Error("No association ID provided in the URL");
     }
-    setAssociationId(parseInt(id, 10));
+    if (associationId === -1) setAssociationId(parseInt(id, 10));
   }
 
   const { mutate } = useMutation({
@@ -133,7 +132,6 @@ function CreateEventContent({ eventId }: CreateEventContentProps) {
   });
 
   function closeForm() {
-    console.log(associationId);
     navigate(`/associations/${associationId}/events`);
   }
 
