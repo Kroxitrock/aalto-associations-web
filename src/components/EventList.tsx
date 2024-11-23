@@ -21,8 +21,6 @@ type Props = {
   provider: EventListType;
 };
 
-//TODO: Do not refetch when I join event from association about page
-
 function EventList({ provider }: Props) {
   const { data: events, refetch } =
     provider === EventListType.MY_EVENTS
@@ -43,7 +41,8 @@ function EventList({ provider }: Props) {
   const { mutate } = useMutation({
     mutationFn: joinEvent,
     onSuccess: () => {
-      setTimeout(refetch);
+      // setTimeout(refetch);
+      window.location.reload(); //TODO: fast fix, now good to stay like that
     },
     onError: () => {
       toast({
