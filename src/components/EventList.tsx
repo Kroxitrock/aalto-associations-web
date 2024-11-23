@@ -30,7 +30,7 @@ function EventList({ provider }: Props) {
   let associationRole: AssociationRoleEnum | null = AssociationRoleEnum.MEMBER;
   if (provider === EventListType.ASSOCIATION_EVENTS) {
     const { data: association } = useAssociationDetails();
-    associationRole = association && association.role ? association.role : null;
+    associationRole = association ? association.role : null;
   }
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -66,7 +66,8 @@ function EventList({ provider }: Props) {
             <div className="flex flex-row gap-2 justify-between leading-normal">
               <CardTitle>{event.title}</CardTitle>
               {!event.joined &&
-                associationRole === AssociationRoleEnum.MEMBER && (
+                associationRole === AssociationRoleEnum.MEMBER &&
+                (!event.capacity || event.participants < event.capacity) && (
                   <Button
                     variant="action"
                     onClick={(e) => {
