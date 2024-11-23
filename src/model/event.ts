@@ -10,6 +10,7 @@ export default interface Event {
   price: number;
   capacity?: number;
   association: Association;
+  joined: boolean;
 }
 
 export interface UpcomingEventDto {

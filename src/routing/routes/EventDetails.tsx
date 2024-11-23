@@ -10,7 +10,7 @@ import {
   ViewTitle,
 } from "@/components/ui/splitView";
 import { useEvent } from "@/contexts/EventContext";
-import { CalendarIcon, EuroIcon, MapPin, Pencil } from "lucide-react";
+import { CalendarIcon, Check, EuroIcon, MapPin, Pencil } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import CircleChip from "@/components/ui/eventcirclechip";
 import EventProvider from "@/provider/EventProvider";
@@ -38,7 +38,6 @@ function EventDetails() {
 
 function EventDetailsContent() {
   const { data, refetch, isPending, error } = useEvent();
-
   const { mutate } = useMutation({
     mutationFn: joinEvent,
     onSuccess: () => {
@@ -98,6 +97,7 @@ function EventDetailsContent() {
             <ActionButton
               eventId={data.id}
               joinAction={() => data.id && mutate(data.id)}
+              joined={data.joined}
             />
           </AssociationDetailsProvider>
         </div>
@@ -109,22 +109,33 @@ function EventDetailsContent() {
 interface PropActionButton {
   eventId: number;
   joinAction: () => void;
+  joined: boolean;
 }
 
-function ActionButton({ eventId, joinAction }: PropActionButton) {
+function ActionButton({ eventId, joinAction, joined }: PropActionButton) {
   const { data: association } = useAssociationDetails();
   const role = association?.role;
   const navigate = useNavigate();
 
   return (
     <div>
-      {role === AssociationRoleEnum.MEMBER && (
+      {!joined && role === AssociationRoleEnum.MEMBER && (
         <Button
           variant="action"
           className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
           onClick={joinAction}
         >
           Join
+        </Button>
+      )}
+
+      {joined && role === AssociationRoleEnum.MEMBER && (
+        <Button
+          variant="status"
+          className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
+        >
+          <Check className="h-4 w-4" />
+          Joined
         </Button>
       )}
 
