@@ -27,10 +27,10 @@ function EventList({ provider }: Props) {
       ? useMyEvents()
       : useAssociationEvents();
 
-  let associationRole = AssociationRoleEnum.MEMBER;
+  let associationRole: AssociationRoleEnum | null = AssociationRoleEnum.MEMBER;
   if (provider === EventListType.ASSOCIATION_EVENTS) {
     const { data: association } = useAssociationDetails();
-    associationRole = association?.role;
+    associationRole = association && association.role ? association.role : null;
   }
   const { toast } = useToast();
   const navigate = useNavigate();

@@ -36,7 +36,7 @@ function EventDetailsContent() {
     <div>
       {isPending && <p>Loading event...</p>}
       {error && <p>Error fetching event!</p>}
-      {data != undefined && (
+      {data && data.id && (
         <div className="flex flex-col items-center justify-between">
           <EventHeader />
           <Card className="bg-black">

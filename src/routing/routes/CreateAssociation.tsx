@@ -8,7 +8,6 @@ import { Form } from "@/components/ui/form";
 import Picture from "@/components/createForm/picture";
 import Description from "@/components/createForm/description";
 import Title from "@/components/createForm/title";
-import { formSchemaAssociation } from "@/components/createForm/createFormProp";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -57,6 +56,21 @@ function CreateAssociationContent({
 }: CreateAssociationContentProps) {
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  const formSchemaAssociation = z.object({
+    title: z.string().min(1, {
+      message: "Title is required.",
+    }),
+    description: z.string().optional(),
+    picture: z
+      .instanceof(File)
+      .refine((file) => file.size !== 0, "Please upload an image")
+      .optional(),
+    telegram: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    membershipFee: z.number().optional(),
+  });
 
   const form = useForm<z.infer<typeof formSchemaAssociation>>({
     resolver: zodResolver(formSchemaAssociation),

@@ -12,7 +12,6 @@ import Title from "@/components/createForm/title";
 import Location from "@/components/createForm/location";
 import Price, { fileToBase64 } from "@/components/createForm/price";
 import DatePicker from "@/components/createForm/datePicker";
-import { formSchemaEvent } from "@/components/createForm/createFormProp";
 import { z } from "zod";
 import Event from "@/model/event";
 import { useMutation } from "@tanstack/react-query";
@@ -38,6 +37,25 @@ export default function CreateEvent() {
     throw new Error("No association ID provided in the URL");
   }
   const associationId = parseInt(id, 10);
+
+  const formSchemaEvent = z.object({
+    title: z.string().min(1, {
+      message: "Title is required.",
+    }),
+    description: z.string().optional(),
+    date: z.date().min(new Date(), {
+      message: "Date should be in the future.",
+    }),
+    location: z.string().optional(),
+    price: z.number().min(0, {
+      message: "Price is required. 0 means free.",
+    }),
+    capacity: z.number().optional(),
+    picture: z
+      .instanceof(File)
+      .refine((file) => file.size !== 0, "Please upload an image")
+      .optional(),
+  });
 
   const form = useForm<z.infer<typeof formSchemaEvent>>({
     resolver: zodResolver(formSchemaEvent),

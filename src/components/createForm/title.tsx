@@ -17,7 +17,7 @@ function Title({ form }: CreateFormProp) {
         <FormItem className="w-1/2">
           <FormLabel>Title *</FormLabel>
           <FormControl>
-            <Input placeholder="Enter title" {...field} />
+            <Input placeholder="Enter event title" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
