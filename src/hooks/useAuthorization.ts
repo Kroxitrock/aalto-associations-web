@@ -7,5 +7,11 @@ export default function useAuthorization() {
 
   const isAuthorized = () => (getToken() ? true : false);
 
-  return [isAuthorized, getToken];
+  const logOut = () => {
+    if (isAuthorized()) {
+      document.cookie = "access_token=; Max-Age=0; path=/; ";
+    }
+  };
+
+  return { isAuthorized, getToken, logOut };
 }

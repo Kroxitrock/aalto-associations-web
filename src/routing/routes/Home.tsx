@@ -8,8 +8,8 @@ import { EventListType } from "@/model/event";
 import useAuthorization from "@/hooks/useAuthorization";
 import Associations from "./Associations";
 
-function Home() {
-  const [isAuthorized] = useAuthorization();
+export default function Home() {
+  const { isAuthorized } = useAuthorization();
 
   if (!isAuthorized()) {
     return <Associations />;
@@ -34,5 +34,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

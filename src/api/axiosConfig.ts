@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   function (config) {
-    const [isAuthorized, getToken] = useAuthorization();
+    const { isAuthorized, getToken } = useAuthorization();
     if (isAuthorized()) {
       config.headers.Authorization = `Bearer ${getToken()}`;
     }

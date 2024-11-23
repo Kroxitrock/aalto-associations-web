@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { LogIn } from "lucide-react";
-import HeaderAssociationSearch from "./HeaderAssociationSearch";
 import { useNavigate } from "react-router-dom";
+import AuthButton from "./AuthButton";
+import HeaderAssociationSearch from "./HeaderAssociationSearch";
 
 function Header() {
   const navigate = useNavigate();
@@ -16,14 +15,7 @@ function Header() {
 
       <div className="flex items-center gap-4">
         <HeaderAssociationSearch />
-        {/* TODO: Add an if to change button to log-in / log out if user is logged in*/}
-        <Button
-          className="flex items-center gap-2 text-sm whitespace-nowrap"
-          onClick={() => navigate("/login")}
-        >
-          <LogIn className="h-4 w-4" />
-          Log In
-        </Button>
+        <AuthButton />
       </div>
     </header>
   );
