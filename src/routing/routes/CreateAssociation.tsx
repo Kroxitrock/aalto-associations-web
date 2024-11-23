@@ -8,19 +8,16 @@ import { Form } from "@/components/ui/form";
 import Picture from "@/components/createForm/picture";
 import Description from "@/components/createForm/description";
 import Title from "@/components/createForm/title";
-import { formSchemaAssociation } from "@/components/createForm/createFormProp";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Telegram from "@/components/createForm/telegram";
 import Phone from "@/components/createForm/phone";
 import Email from "@/components/createForm/email";
-import MembershipFee, {
-  fileToBase64,
-} from "@/components/createForm/membershipFee";
+import MembershipFee from "@/components/createForm/membershipFee";
 import { Association, AssociationRoleEnum } from "@/model/association";
-import { createAssociation } from "@/api/associations";
+import { createAssociation, updateAssociation } from "@/api/associations";
 import {
   Dialog,
   DialogContent,
@@ -30,23 +27,87 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
+import { useGetAssociationDetails } from "@/hooks/useGetAssociationDetails";
+import { useEffect } from "react";
+import { base64ToFile, fileToBase64 } from "@/components/createForm/price";
+
 export default function CreateAssociation() {
+  const { id } = useParams();
+  if (!id) {
+    return <CreateAssociationContent />;
+  }
+  const associationId = parseInt(id, 10);
+  return (
+    <AssociationDetailsProvider associationId={associationId}>
+      <CreateAssociationContent associationId={associationId} />
+    </AssociationDetailsProvider>
+  );
+}
+
+interface CreateAssociationContentProps {
+  associationId?: number;
+}
+
+function CreateAssociationContent({
+  associationId,
+}: CreateAssociationContentProps) {
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  const formSchemaAssociation = z.object({
+    title: z.string().min(1, {
+      message: "Title is required.",
+    }),
+    description: z.string().optional(),
+    picture: z
+      .instanceof(File)
+      .refine((file) => file.size !== 0, "Please upload an image")
+      .optional(),
+    telegram: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    membershipFee: z.number().optional(),
+  });
 
   const form = useForm<z.infer<typeof formSchemaAssociation>>({
     resolver: zodResolver(formSchemaAssociation),
     defaultValues: {
       title: "",
+      picture: undefined,
     },
   });
+  if (associationId) {
+    const { reset } = form;
+
+    // TODO: warinings in the console
+    const { data: association } = useGetAssociationDetails(associationId);
+    useEffect(() => {
+      if (association) {
+        reset({
+          title: association.name,
+          description: association.description || undefined,
+          membershipFee: association.membership_fee || undefined,
+          phone: association.phone || undefined,
+          email: association.email || undefined,
+          telegram: association.telegram || undefined,
+          picture: base64ToFile(association.logo, association.name),
+        });
+      }
+    }, [association, reset]);
+  }
+
   const { mutate } = useMutation({
-    mutationFn: createAssociation,
+    mutationFn: (association: Association) => {
+      return associationId
+        ? updateAssociation(association, associationId)
+        : createAssociation(association);
+    },
     onSuccess: () => {
       closeForm();
       toast({
         duration: 2000,
-        description: "Association created successfuly!",
+        description: "Successfull request!",
       });
     },
     onError: () => {
@@ -77,7 +138,6 @@ export default function CreateAssociation() {
       id: 0,
       role: AssociationRoleEnum.LEADER,
     };
-    console.log("mutate");
     mutate(association);
   }
 
@@ -88,7 +148,7 @@ export default function CreateAssociation() {
   return (
     <div className="bg-shadowDark p-8 text-black">
       <CardTitle className="border-b border-white text-4xl mb-8 text-white">
-        Create new association
+        {associationId ? "Edit" : "Create"} new association
       </CardTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -103,9 +163,16 @@ export default function CreateAssociation() {
             <Telegram form={form} />
           </div>
           <Picture form={form} />
-          <Button type="submit" variant="action" className="mr-4">
-            Create
-          </Button>
+          {!associationId && (
+            <Button type="submit" variant="action" className="mr-4">
+              Create
+            </Button>
+          )}
+          {associationId && (
+            <Button type="submit" variant="action" className="mr-4">
+              Save
+            </Button>
+          )}
           <Dialog>
             <DialogTrigger>
               <Button type="button" variant="info">
@@ -116,7 +183,8 @@ export default function CreateAssociation() {
               <DialogHeader>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogDescription>
-                  Are you sure you do not want to creata this association?
+                  Are you sure you do not want to
+                  {associationId ? "edit" : "create"} this association?
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>

@@ -12,7 +12,6 @@ function AssociationHeader() {
   const { data, refetch, isPending, error } = useAssociationDetails();
   const { toast } = useToast();
   const navigate = useNavigate();
-
   const { mutate } = useMutation({
     mutationFn: joinAssociation,
     onSuccess: () => {
@@ -61,7 +60,11 @@ function AssociationHeader() {
           )}
 
           {data.role === AssociationRoleEnum.LEADER && (
-            <Button className="absolute bottom-4 right-4 px-4" variant="icon">
+            <Button
+              className="absolute bottom-4 right-4 px-4"
+              variant="icon"
+              onClick={() => navigate(`/associations/${data.id}/edit`)}
+            >
               <Pencil className="h-4 w-4" /> Edit
             </Button>
           )}
