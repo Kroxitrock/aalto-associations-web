@@ -19,7 +19,7 @@ import { CreateFormProp } from "@/components/createForm/createFormProp";
 import { Button } from "@/components/ui/button";
 
 // TODO: font is different
-// TODO: Find how to change the color of the DayPicker
+// TODO: Find how to change the color of the DayPicker or leave it like that
 function DatePicker({ form }: CreateFormProp) {
   return (
     <FormField

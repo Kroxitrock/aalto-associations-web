@@ -170,6 +170,7 @@ function CreateEventContent({ eventId }: CreateEventContentProps) {
       price: values.price || 0,
       capacity: values.capacity,
       association: { id: associationId } as Association,
+      joined: true,
     };
     mutate(event);
   }
