@@ -91,6 +91,7 @@ function CreateEventContent({ eventId }: CreateEventContentProps) {
     picture: z
       .instanceof(File)
       .refine((file) => file.size !== 0, "Please upload an image")
+      .refine((file) => file?.size <= 200000, `Max image size is 200 KB.`)
       .optional(),
   });
 
