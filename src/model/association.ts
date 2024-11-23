@@ -20,6 +20,7 @@ export enum AssociationTabsEnum {
 }
 
 export enum AssociationRoleEnum {
-  MEMBER,
-  LEADER,
+  MEMBER = "MEMBER",
+  LEADER = "LEADER",
+  NONE = "NONE",
 }

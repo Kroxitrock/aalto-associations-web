@@ -33,7 +33,9 @@ import {
 import EventProvider from "@/provider/EventProvider";
 import { useEffect, useState } from "react";
 import { useEvent } from "@/contexts/EventContext";
-import { Association } from "@/model/association";
+import { Association, AssociationRoleEnum } from "@/model/association";
+import { getMyRoleForAssociation } from "@/api/user";
+import useAuthorization from "@/hooks/useAuthorization";
 
 export default function CreateEvent() {
   const { eventId } = useParams();
@@ -55,6 +57,23 @@ function CreateEventContent({ eventId }: CreateEventContentProps) {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [associationId, setAssociationId] = useState<number>(-1);
+  const { isAuthorized } = useAuthorization();
+
+  const { mutate: validateRole } = useMutation({
+    mutationFn: () => getMyRoleForAssociation(associationId),
+    onSuccess: (role: AssociationRoleEnum) => {
+      if (role != AssociationRoleEnum.LEADER) {
+        navigate("/");
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (!isAuthorized()) {
+      navigate("/");
+    }
+    if (associationId != -1) validateRole();
+  }, [associationId]);
 
   const formSchemaEvent = z.object({
     title: z.string().min(1, {

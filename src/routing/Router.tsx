@@ -30,7 +30,7 @@ export default function Router() {
         <Route path="/events/:id" element={<EventDetails />} />
         <Route
           path="/associations/:id/events/create"
-          element={<CreateEvent />} //TODO: User who is not leader should not be allow to access this page
+          element={<CreateEvent />}
         />
         <Route path="/associations/:id/edit" element={<CreateAssociation />} />
         <Route path="/events/:eventId/edit" element={<CreateEvent />} />
