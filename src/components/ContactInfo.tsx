@@ -19,23 +19,29 @@ function ContactInfo() {
   if (error) {
     return <div>Error loading contact details.</div>;
   }
-  
+
   return (
     <div className="flex flex-col">
       <Category>
-        <CategoryTitle>Channels</CategoryTitle>
+        {!data?.telegram && !data?.phone && !data?.email && "No conntacts"}
+        {data?.telegram && (
           <CircleChip
             icon={<Send className="text-black h-4 w-4" />}
             title={data?.telegram}
           />
+        )}
+        {data?.phone && (
           <CircleChip
             icon={<Phone className="text-black h-4 w-4" />}
             title={data?.phone}
           />
+        )}
+        {data?.email && (
           <CircleChip
             icon={<Mail className="text-black h-4 w-4" />}
             title={data?.email}
           />
+        )}
       </Category>
     </div>
   );
