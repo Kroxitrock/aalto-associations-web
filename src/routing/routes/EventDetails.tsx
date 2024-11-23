@@ -10,11 +10,14 @@ import {
   ViewTitle,
 } from "@/components/ui/splitView";
 import { useEvent } from "@/contexts/EventContext";
-import { CalendarIcon, EuroIcon, MapPin } from "lucide-react";
+import { CalendarIcon, EuroIcon, MapPin, Pencil } from "lucide-react";
 import { useParams } from "react-router-dom";
 import CircleChip from "@/components/ui/eventcirclechip";
 import EventProvider from "@/provider/EventProvider";
 import EventParticipantsProvider from "@/provider/EventParticipantsProvider";
+import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
+import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
+import { AssociationRoleEnum } from "@/model/association";
 
 function EventDetails() {
   const { id } = useParams();
@@ -72,13 +75,40 @@ function EventDetailsContent() {
               </EventParticipantsProvider>
             </RightView>
           </SplitView>
-          <Button
-            variant="action"
-            className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
-          >
-            Join
-          </Button>
+          <AssociationDetailsProvider associationId={data.association.id}>
+            <ActionButton />
+          </AssociationDetailsProvider>
         </div>
+      )}
+    </div>
+  );
+}
+
+function ActionButton() {
+  const { data: association } = useAssociationDetails();
+  const role = association?.role;
+
+  return (
+    <div>
+      {role === AssociationRoleEnum.MEMBER && (
+        <Button
+          variant="action"
+          className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
+        >
+          Join
+        </Button>
+      )}
+
+      {/* TODO: Maybe change the possition of the btn */}
+      {/* TODO: Status joined is missing */}
+      {role === AssociationRoleEnum.LEADER && (
+        <Button
+          variant="icon"
+          className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
+        >
+          <Pencil className="h-4 w-4" />
+          Edit
+        </Button>
       )}
     </div>
   );
