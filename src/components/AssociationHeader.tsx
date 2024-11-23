@@ -12,7 +12,9 @@ function AssociationHeader() {
   const { data, refetch, isPending, error } = useAssociationDetails();
   const { toast } = useToast();
   const navigate = useNavigate();
+  console.log(data);
 
+  // const association = data.data;
   const { mutate } = useMutation({
     mutationFn: joinAssociation,
     onSuccess: () => {

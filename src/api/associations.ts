@@ -26,7 +26,7 @@ export function updateAssociation(
 }
 
 export function getAssociationDetails(id: number): Promise<Association> {
-  return axiosInstance.get(
-    `${import.meta.env.VITE_API_URL}/associations/${id}`
-  );
+  return axiosInstance
+    .get(`${import.meta.env.VITE_API_URL}/associations/${id}`)
+    .then((response) => response.data as Association);
 }
