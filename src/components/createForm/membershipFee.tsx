@@ -41,5 +41,31 @@ export function fileToBase64(file: File): Promise<string> {
     reader.readAsDataURL(file);
   });
 }
+export function base64ToFile(
+  base64: string | null | undefined,
+  filename: string
+): File | undefined {
+  if (!base64) {
+    return undefined;
+  }
+
+  const [metadata, data] = base64.split(",");
+
+  if (!data) {
+    return undefined;
+  }
+
+  const mimeType =
+    metadata.match(/data:(.*?);base64/)?.[1] || "application/octet-stream";
+
+  const byteString = atob(data);
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const uint8Array = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i);
+  }
+
+  return new File([arrayBuffer], filename, { type: mimeType });
+}
 
 export default MembershipFee;

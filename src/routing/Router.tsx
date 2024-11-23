@@ -25,13 +25,14 @@ export default function Router() {
           path="/associations/:id/about"
           element={<AssociationDetails />}
         />
+        <Route path="/associations/create" element={<CreateAssociation />} />
+
         <Route path="/events/:id" element={<EventDetails />} />
-        <Route path="/events/create" element={<CreateEvent />} />
         <Route
           path="/associations/:id/events/create"
           element={<CreateEvent />} //TODO: User who is not leader should not be allow to access this page
         />
-        <Route path="/associations/create" element={<CreateAssociation />} />
+        <Route path="/associations/:id/edit" element={<CreateAssociation />} />
 
         <Route path="/login" element={<Login />} />
       </Routes>
