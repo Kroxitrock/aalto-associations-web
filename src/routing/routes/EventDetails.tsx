@@ -22,7 +22,6 @@ import { useMutation } from "@tanstack/react-query";
 import { joinEvent } from "@/api/event";
 import { toast } from "@/hooks/use-toast";
 
-//TODO: Join btn visible when user joined
 function EventDetails() {
   const { id } = useParams();
   if (!id) {
@@ -140,7 +139,6 @@ function ActionButton({ eventId, joinAction, joined }: PropActionButton) {
       )}
 
       {/* TODO: Maybe change the possition of the btn */}
-      {/* TODO: Status joined is missing */}
       {role === AssociationRoleEnum.LEADER && (
         <Button
           variant="icon"
