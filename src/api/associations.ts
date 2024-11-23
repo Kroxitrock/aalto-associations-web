@@ -17,3 +17,9 @@ export function joinAssociation(associationId: number) {
 export function createAssociation(association: Association) {
   return axiosInstance.post(path, association);
 }
+
+export function getAssociationDetails(id: number): Promise<Association> {
+  return axiosInstance.get(
+    `${import.meta.env.VITE_API_URL}/associations/${id}`
+  );
+}
