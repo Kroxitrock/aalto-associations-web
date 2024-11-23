@@ -32,7 +32,6 @@ import { useGetAssociationDetails } from "@/hooks/useGetAssociationDetails";
 import { useEffect } from "react";
 import { base64ToFile, fileToBase64 } from "@/components/createForm/price";
 
-//TODO: Edit ass goes to ass list, intead of ass/id/... smth maybe back page
 export default function CreateAssociation() {
   const { id } = useParams();
   if (!id) {
@@ -143,7 +142,9 @@ function CreateAssociationContent({
   }
 
   function closeForm() {
-    navigate(`/associations`);
+    navigate(
+      associationId ? `/associations/${associationId}/about` : `/associations`
+    );
   }
 
   return (

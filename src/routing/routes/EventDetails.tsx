@@ -11,17 +11,18 @@ import {
 } from "@/components/ui/splitView";
 import { useEvent } from "@/contexts/EventContext";
 import { CalendarIcon, EuroIcon, MapPin, Pencil } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CircleChip from "@/components/ui/eventcirclechip";
 import EventProvider from "@/provider/EventProvider";
 import EventParticipantsProvider from "@/provider/EventParticipantsProvider";
 import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
 import { useAssociationDetails } from "@/contexts/AssociationDetailsContext";
 import { AssociationRoleEnum } from "@/model/association";
+import { useMutation } from "@tanstack/react-query";
+import { joinEvent } from "@/api/event";
+import { toast } from "@/hooks/use-toast";
 
 //TODO: Join btn visible when user joined
-//TODO: Map pin visible when location not put
-//TODO: Edit btn not working
 function EventDetails() {
   const { id } = useParams();
   if (!id) {
@@ -36,7 +37,22 @@ function EventDetails() {
 }
 
 function EventDetailsContent() {
-  const { data, isPending, error } = useEvent();
+  const { data, refetch, isPending, error } = useEvent();
+
+  const { mutate } = useMutation({
+    mutationFn: joinEvent,
+    onSuccess: () => {
+      setTimeout(refetch);
+    },
+    onError: () => {
+      toast({
+        duration: 2000,
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    },
+  });
 
   return (
     <div>
@@ -53,7 +69,7 @@ function EventDetailsContent() {
               />
             )}
 
-            {data.location !== null && (
+            {data.location && data.location !== null && (
               <CircleChip
                 icon={<MapPin className="h-12 w-12" />}
                 title={data.location}
@@ -79,7 +95,10 @@ function EventDetailsContent() {
             </RightView>
           </SplitView>
           <AssociationDetailsProvider associationId={data.association.id}>
-            <ActionButton />
+            <ActionButton
+              eventId={data.id}
+              joinAction={() => data.id && mutate(data.id)}
+            />
           </AssociationDetailsProvider>
         </div>
       )}
@@ -87,9 +106,15 @@ function EventDetailsContent() {
   );
 }
 
-function ActionButton() {
+interface PropActionButton {
+  eventId: number;
+  joinAction: () => void;
+}
+
+function ActionButton({ eventId, joinAction }: PropActionButton) {
   const { data: association } = useAssociationDetails();
   const role = association?.role;
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -97,6 +122,7 @@ function ActionButton() {
         <Button
           variant="action"
           className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
+          onClick={joinAction}
         >
           Join
         </Button>
@@ -108,6 +134,7 @@ function ActionButton() {
         <Button
           variant="icon"
           className="mb-4 fixed bottom-4 left-1/2 transform -translate-x-1/2"
+          onClick={() => navigate(`/events/${eventId}/edit`)}
         >
           <Pencil className="h-4 w-4" />
           Edit
