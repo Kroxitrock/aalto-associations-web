@@ -31,9 +31,23 @@ import AssociationDetailsProvider from "@/provider/AssociationDetailsProvider";
 import { useGetAssociationDetails } from "@/hooks/useGetAssociationDetails";
 import { useEffect } from "react";
 import { base64ToFile, fileToBase64 } from "@/components/createForm/price";
+import useAuthorization from "@/hooks/useAuthorization";
 
 export default function CreateAssociation() {
   const { id } = useParams();
+  const { isAuthorized } = useAuthorization();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthorized()) {
+      navigate("/login");
+    }
+  }, [isAuthorized, navigate]);
+
+  if (!isAuthorized()) {
+    return <></>;
+  }
+
   if (!id) {
     return <CreateAssociationContent />;
   }
