@@ -5,8 +5,16 @@ import { CardTitle } from "@/components/ui/card";
 import { MyAssociationsProvider } from "@/provider/MyAssociationsProvider";
 import { MyEventsProvider } from "@/provider/MyEventProvider";
 import { EventListType } from "@/model/event";
+import useAuthorization from "@/hooks/useAuthorization";
+import Associations from "./Associations";
 
 function Home() {
+  const [isAuthorized] = useAuthorization();
+
+  if (!isAuthorized()) {
+    return <Associations />;
+  }
+
   return (
     <div>
       <CardTitle className="border-b border-white mb-4">
