@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { Check, MapPin, User } from "lucide-react";
+import { Check, MapPin, Pencil, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMyEvents } from "@/contexts/MyEventsContext";
 import { useAssociationEvents } from "@/contexts/AssociationEventsContext";
@@ -77,11 +77,17 @@ function EventList({ provider }: Props) {
                     Join
                   </Button>
                 )}
-              {event.joined && (
+              {associationRole === AssociationRoleEnum.LEADER && (
                 <Button variant="icon">
-                  <Check className="h-4 w-4" /> Joined
+                  <Pencil className="h-4 w-4" /> Edit
                 </Button>
               )}
+              {event.joined &&
+                associationRole != AssociationRoleEnum.LEADER && (
+                  <Button variant="icon">
+                    <Check className="h-4 w-4" /> Joined
+                  </Button>
+                )}
             </div>
             <CardDescription className="mt-4 max-h-16 line-clamp-3">
               {event.description}
