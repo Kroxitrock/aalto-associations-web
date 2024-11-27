@@ -1,5 +1,10 @@
 export default function useAuthorization() {
+  const setAuthorizationToken = (token: string) => {
+    localStorage.setItem("token", token);
+  };
+
   const getToken = () =>
+    localStorage.getItem("token") ??
     document.cookie
       .split("; ")
       .filter((row) => row.startsWith("access_token="))
@@ -9,9 +14,10 @@ export default function useAuthorization() {
 
   const logOut = () => {
     if (isAuthorized()) {
+      localStorage.removeItem("token");
       document.cookie = "access_token=; Max-Age=0; path=/; ";
     }
   };
 
-  return { isAuthorized, getToken, logOut };
+  return { isAuthorized, getToken, logOut, setAuthorizationToken };
 }

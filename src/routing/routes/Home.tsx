@@ -6,18 +6,25 @@ import { MyAssociationsProvider } from "@/provider/MyAssociationsProvider";
 import { MyEventsProvider } from "@/provider/MyEventProvider";
 import { EventListType } from "@/model/event";
 import useAuthorization from "@/hooks/useAuthorization";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { isAuthorized } = useAuthorization();
+  const { isAuthorized, setAuthorizationToken } = useAuthorization();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  console.log(searchParams.get("token"));
+
   useEffect(() => {
+    const token = searchParams.get("token");
+    if (token) {
+      setAuthorizationToken(token);
+    }
     if (!isAuthorized()) {
       navigate("/associations");
     }
-  }, [isAuthorized, navigate]);
+  }, [searchParams, isAuthorized, navigate]);
 
   return (
     <div>
